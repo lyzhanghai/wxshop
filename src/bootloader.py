@@ -18,7 +18,7 @@ settings.update({
         'upload_path':os.path.join(os.path.dirname(__file__), 'upload'),
         'cookie_secret':"SZUzonpBQIuXE3yKBtWPre2N5AS7jEQKv0Kioj9iKT0=",
         'login_url':'/signin',
-        "xsrf_cookies": True,
+        "xsrf_cookies": False,
         'ui_modules' : uimodules,
         'autoescape':None
     })
