@@ -12,10 +12,10 @@ from bootloader import settings, jinja_environment, memcachedb
 from lib.filter import register_filters
 from lib.route import Route
 from lib.session import MemcacheSessionStore
-from handler import site, admin, ajax, oauth, shop, pay, user
+from handler import weixin, site, admin, ajax, oauth, shop, pay, user
 
 define('cmd', default='runserver', metavar='runserver|syncdb')
-define('port', default=8080, type=int)
+define('port', default=80, type=int)
 
 class Application(tornado.web.Application):
     def __init__(self):
