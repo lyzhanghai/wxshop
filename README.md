@@ -1,5 +1,4 @@
 系统要求：
-nginx
 centos 6.x
 mysql 5.1x
 memcached
@@ -14,57 +13,13 @@ wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo python
 /usr/bin/easy_install pip
 yum install python-devel
 
-2 安装 virtualenv
-easy_install virtualenv
-
-3 安装pypy
+2 安装pypy
 yum -y install pypy-libs pypy pypy-devel
 
-4 创建基本环境
-cd /home/www
-virtualenv --no-site-packages -p pypy czcake
-
-cd czcake
-source bin/activate
-
-#把源文件放进来
+3 安装依赖
 pip install PIL --allow-external PIL --allow-unverified PIL
 pip install -r requirement.txt
 
-mkdir etc
-echo_supervisord_conf > etc/supervisord.conf
-
-vi etc/supervisord.conf
-#添加配置
-[program:czcake8080]
-command=python /home/www/czcake/src/manager.py
-autostart=true
-stderr_logfile = /var/log/nginx/app.log
-stdout_logfile = /var/log/nginx/app.log
-
-supervisord -c /home/www/czcake/etc/supervisord.conf
-
-vi /etc/nginx.conf
-#添加配置
-upstream czcake {
-    server 127.0.0.1:8080;
-}
-
-server {
-    listen       80;
-    server_name czcake.heycz.com;
-    client_max_body_size  4M;
-
-    location /
-    {
-        proxy_pass_header Server;
-        proxy_set_header Host $http_host;
-        proxy_redirect off;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Scheme $scheme;
-        proxy_pass http://czcake;
-    }
-}
 
 二 项目配置
 cd src
@@ -75,7 +30,4 @@ vi setting.py
 python manager.py --cmd=syncdb
 
 三 开始运行
-supervisorctl restart all
-service nginx restart
-或者
-python manager.py --port=80
+python manager.py
