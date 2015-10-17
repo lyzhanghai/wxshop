@@ -9,6 +9,8 @@ from lib.route import route
 from model import Oauth, User, UserVcode, Page, Apply, Shop, Ad
 import xml.etree.ElementTree as ET
 import time
+import urllib2
+import json
 
 @route(r'/weixin', name='weixin_index')
 class indexHandler(BaseHandler):
@@ -18,6 +20,25 @@ class indexHandler(BaseHandler):
         result = urllib2.urlopen(url).read()
         self.settings['access_token'] = json.loads(result).get('access_token')
         print 'access_token===%s' % self.settings['access_token']
+    def createMenu(self):
+        url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s" % self.settings['access_token']
+        data = {
+           "button":[ 
+            {
+               "name":"菜单",
+               "sub_button":[
+               {    
+                   "type":"view",
+                   "name":"访问",
+                   "url":self.settings['weixin_url']
+                }]
+            }]
+        }
+        req = urllib2.Request(url)
+        req.add_header('Content-Type', 'application/json')
+        req.add_header('encoding', 'utf-8')
+        response = urllib2.urlopen(req, json.dumps(data,ensure_ascii=False))
+        result = response.read()	
     def message(self , body):
 	data = ET.fromstring(body)
         tousername = data.find('ToUserName').text
@@ -59,3 +80,5 @@ class indexHandler(BaseHandler):
         timeStamp = self.get_argument("timestamp")
 	body = self.request.body
 	self.message(body)
+        self.get_access_token()
+        self.createMenu()
