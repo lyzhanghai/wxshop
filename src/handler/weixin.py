@@ -12,6 +12,12 @@ import time
 
 @route(r'/weixin', name='weixin_index')
 class indexHandler(BaseHandler):
+    def get_access_token(self):
+        url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s' % (
+        self.settings['weixin_appid'], self.settings['weixin_secret'])
+        result = urllib2.urlopen(url).read()
+        self.settings['access_token'] = json.loads(result).get('access_token')
+        print 'access_token===%s' % self.settings['access_token']
     def message(self , body):
 	data = ET.fromstring(body)
         tousername = data.find('ToUserName').text
