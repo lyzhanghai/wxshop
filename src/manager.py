@@ -54,7 +54,7 @@ def syncdb():
     Category.create(name = '乳酪蛋糕', slug = 'cheese', order = 5)
     Category.create(name = '乳脂奶油蛋糕', slug = 'creambutter', order = 6)
     Category.create(name = '冰淇淋蛋糕', slug = 'icecream', order = 7)
-    Page.create(name = '吉米的厨房', slug = 'aboutus', content = '')
+    Page.create(name = '菜市优品', slug = 'aboutus', content = '')
     Page.create(name = '包装展示', slug = 'bzzs', content = '')
     Page.create(name = '订购说明', slug = 'dgsm', content = '')
     Page.create(name = '如何收货', slug = 'rhsh', content = '')
