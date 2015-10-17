@@ -32,3 +32,4 @@ ALIPAY_TRANSPORT='https'
 SMS_KEY = 0
 SMS_SECRET = ''
 SMS_GATEWAY = 'http://sms.bechtech.cn/Api/send/data/json'
+WEIXIN_TOKEN = '111111'
