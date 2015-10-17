@@ -1,17 +1,15 @@
 {% extends "layout/site.html" %}
 
-{% block title %}蛋糕名录{% endblock %}
+{% block title %}产品列表{% endblock %}
 {% block css %}list{% endblock %}
 {% block content %}
-<div class="blank2"></div>
-<div class="wapper"><img src="/style/css/nav_list.jpg"/></div>
 <div class="blank10"></div>
 <!--<div class="wapper">
 	<div class="borcc p10" style="background: #dddddd;">
 		分类：<a href="/list/">全部</a>&nbsp;{%for category in categorys -%}<a href="/list/{{category.slug}}">{{category.name}}</a>&nbsp;{% endfor%}&nbsp;|&nbsp;排序：<a href="/list/{{ccategory.slug}}">默认</a>&nbsp;<a href="/list/{{ccategory.slug}}?order=views">浏览</a>&nbsp;<a href="/list/{{ccategory.slug}}?order=orders">销量</a>
 	</div> 
 </div>-->
-<div class="wapper fs16"><a href="/">首页</a> &gt;&gt; 蛋糕名录 {% if ccategory %} &gt;&gt; {{ccategory.name}} {% endif %}</div>
+<div class="wapper fs16"><a href="/">首页</a> &gt;&gt; 产品列表 {% if ccategory %} &gt;&gt; {{ccategory.name}} {% endif %}</div>
 <div class="blank10"></div>
 <div class="wapper">
 {% if total > 0 -%}

@@ -24,7 +24,7 @@ class RecommHandler(BaseHandler):
         
         self.render("shop/recomm.html", shops = shops, total = total, page = page, pagesize = pagesize)
     
-@route(r'/list/([^/]+)?', name='list') #蛋糕名录
+@route(r'/list/([^/]+)?', name='list') # 产品列表
 class ListHandler(BaseHandler):
     
     def get(self, slug):
