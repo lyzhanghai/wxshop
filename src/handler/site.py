@@ -6,6 +6,8 @@ from tornado.web import HTTPError
 from handler import BaseHandler
 from lib.route import route
 from model import Oauth, User, UserVcode, Page, Apply, Shop, Ad
+import urllib2
+import json
 
 @route(r'/', name='index') #首页
 class IndexHandler(BaseHandler):
@@ -140,6 +142,11 @@ class SignInHandler(BaseHandler):
 @route(r'/signup', name='signup') #注册
 class SignUpHandler(BaseHandler):
     
+    def get_openid(self,code):
+        url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code' % (
+        self.settings['weixin_appid'], self.settings['weixin_secret'], code)
+        result = urllib2.urlopen(url).read()
+        return json.loads(result).get('openid')
     def get(self):
         if self.get_current_user():
             self.redirect("/")
@@ -148,8 +155,12 @@ class SignUpHandler(BaseHandler):
         oauth = None
         if 'oauth' in self.session:
             oauth = self.session['oauth']
-        
-        self.render("site/signup.html", oauth = oauth)
+        code = self.get_argument("code", None)
+        print code
+        openid = self.get_openid(code)
+        print openid
+    
+        self.render("site/signup.html", oauth = oauth ,openid = openid)
     
     def post(self):
         if self.get_current_user():
@@ -160,10 +171,13 @@ class SignUpHandler(BaseHandler):
         password = self.get_argument("password", None)
         apassword = self.get_argument("apassword", None)
         vcode = self.get_argument("vcode", None)
-        sharer = self.get_argument("sharer", None) 
+        sharer = self.get_argument("sharer", None)
+        openid = self.get_argument("openid", None) 
         
         user = User()
         user.mobile = mobile
+        user.openid = openid
+        print openid
         user.password = User.create_password(password)
         
         try:

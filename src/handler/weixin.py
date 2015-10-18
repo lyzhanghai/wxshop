@@ -20,6 +20,7 @@ class indexHandler(BaseHandler):
         result = urllib2.urlopen(url).read()
         self.settings['access_token'] = json.loads(result).get('access_token')
         print 'access_token===%s' % self.settings['access_token']
+   
     def createMenu(self):
         url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s" % self.settings['access_token']
         data = {
@@ -34,8 +35,9 @@ class indexHandler(BaseHandler):
                "sub_button":[
                {    
                    "type":"view",
-                   "name":"登录",
-                   "url":self.settings['weixin_url']+'/signin'
+                   "name":"登录/注册",
+                   "url":'https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_base#wechat_redirect' % (
+        self.settings['weixin_appid'], self.settings['weixin_url']+'/signup')
                 },
                 {    
                    "type":"view",
@@ -49,13 +51,13 @@ class indexHandler(BaseHandler):
                 },
                {    
                    "type":"view",
-                   "name":"分享",
-                   "url":self.settings['weixin_url']+'/signin'
+                   "name":"我的积分",
+                   "url":self.settings['weixin_url']+'/user/credits'
                 },
                {    
                    "type":"view",
-                   "name":"积分",
-                   "url":self.settings['weixin_url']+'/user/credits'
+                   "name":"分享",
+                   "url":self.settings['weixin_url']+"/share?sharer=root"
                 }]
             }, 
             {    
