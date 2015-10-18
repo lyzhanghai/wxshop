@@ -24,15 +24,45 @@ class indexHandler(BaseHandler):
         url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s" % self.settings['access_token']
         data = {
            "button":[ 
+            {    
+               "type":"view",  
+               "name":"购物车",
+               "url":self.settings['weixin_url']+'/order'
+                }, 
             {
-               "name":"菜单",
+               "name":"会员中心",
                "sub_button":[
                {    
                    "type":"view",
-                   "name":"访问",
-                   "url":self.settings['weixin_url']
+                   "name":"登录",
+                   "url":self.settings['weixin_url']+'/signin'
+                },
+                {    
+                   "type":"view",
+                   "name":"个人信息",
+                   "url":self.settings['weixin_url']+'/user/profile'
+                },
+               {    
+                   "type":"view",
+                   "name":"我的订单",
+                   "url":self.settings['weixin_url']+'/user'
+                },
+               {    
+                   "type":"view",
+                   "name":"分享",
+                   "url":self.settings['weixin_url']+'/signin'
+                },
+               {    
+                   "type":"view",
+                   "name":"积分",
+                   "url":self.settings['weixin_url']+'/user/credits'
                 }]
-            }]
+            }, 
+            {    
+               "type":"view",  
+               "name":"微商城",
+               "url":self.settings['weixin_url']
+                }]			
         }
         req = urllib2.Request(url)
         req.add_header('Content-Type', 'application/json')
