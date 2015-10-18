@@ -8,9 +8,11 @@
     <meta property="wb:webmaster" content="988c9b63cde60b6c" />
 
     <title>{% block title %}首页{% endblock %}</title>
+	<link type="text/css" rel="stylesheet" href="/style/css/jquery.mobile-1.4.2.min.css" />
 	<link type="text/css" rel="stylesheet" href="/style/css/global.css" />
     <link type="text/css" rel="stylesheet" href="/style/css/common.css" />
     <link type="text/css" rel="stylesheet" href="/style/css/{% block css %}{% endblock %}.css" />
+	<script src="/style/js/jquery.mobile-1.4.2.min.js"></script>
     <script src="/style/js/do.js"></script>
     <script src="/style/js/common.js"></script>
     <script src="/style/js/{% block js %}{% endblock %}.js"></script>
@@ -125,7 +127,7 @@
         </div>
         <div class="link_form">
             <p class="oc mb20">还没有菜市优品的账户？ </p>
-            <p><input type="button" class="titico sbut" onclick="$.register();" value="免费注册"></p>
+            <p><input type="button" class="titico sbut" onClick="$.register();" value="免费注册"></p>
             </div>
             <div class="blank20"></div>
         </div>
@@ -167,7 +169,7 @@
             </form>
     		<div class="link_form">
     			<p class="oc mb20">已有菜市优品的账户？ </p>
-    			<p><input type="button" class="titico sbut" onclick="$.login();" value="登陆"></p>
+    			<p><input type="button" class="titico sbut" onClick="$.login();" value="登陆"></p>
     			<p class="mt20">或使用合作网站帐号登录</p>
     			<p class="mt5"><a class="global_pop_title xinlang" href="/oauth/weibo?next=/">新浪</a><a class="global_pop_title zhifubao ml20" href="/oauth/alipay?next=/">支付宝</a></p>
     		</div>
