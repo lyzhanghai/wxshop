@@ -37,9 +37,9 @@
             </td>
             <td>
                <span class="cakenumbox">
-                   <input type="text" name="num" value="{{orderitem.num}}" size="4" maxlength="4" data="{{price}}" data-id="{{orderitem.id}}" class="num"/>
-                   <span class="increase titico"></span>
-                   <span class="decrease titico"></span>
+                   <input type="text" name="num" id="productNum" value="{{orderitem.num}}" size="4" maxlength="4" data="{{price}}" data-id="{{orderitem.id}}" class="num"/>
+                   <span class="increase titico" onclick="increase()"></span>
+                   <span class="decrease titico" onclick="decrease()"></span>
                </span>
             </td>
             <td class="orderitemtotalprice">

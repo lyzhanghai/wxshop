@@ -1,36 +1,38 @@
 {% extends "/layout/base.html" %}
 {% block myjs %}
 <script type="text/javascript" src="/style/js/do.js"></script>
-<script type="text/javascript" src="/style/js/shop.js"></script>
+<script type="text/javascript" src="/style/js/numberInput.js"></script>
+<link rel="stylesheet" type="text/css" href="/style/css/numberInput.css"/>
 {% endblock %}
 
 {% block content %}  
-   <div class="wapper">
+<div class="wapper">
     <div class="cakeinfo">
-        <p class="borbom"><font class="fs22 bigfs"  id="shop" data-id="{{shop.id}}">{{shop.name}}</font><br/><font class="fs18 bigfs">{{shop.ename}}</font></p>
-        <p class="fs22 borbom mt20">价格 <font class="oc" id="price">{{shop.price}}</font> 元</p>
-        <p class="borbom mt20 pb10">{{shop.resume}}</p>
-        <div class="borbom item clearfix bgffffbf">
-            <span>重量</span>
-            <div id="size_sel">
-            {% for shopattr in shopattrs -%}
-				<a  data="{{shopattr.price}}" data-id="{{shopattr.id}}">{{shopattr.name}}</a>
-			{%- endfor %}
-            </div>
-            <span>数量</span>
-            <div id="num_sel">
-                <div class="cakenumbox">
-                    <input type="text" name="num" id="num" value="1">
-                    <a class="increase titico"></a>
-                    <a class="decrease titico"></a>
-                </div>
-            </div>
-
+        <p class="borbom">
+			<font class="fs22 bigfs"  id="shop" data-id="{{shop.id}}">中文名：{{shop.name}}</font><br/>
+			<font class="fs18 bigfs">英文名：{{shop.ename}}</font><br/>
+			<font class="fs18 bigfs">价格：<dev id="price">{{shop.price}}</dev>元</font><br/>
+			<font class="fs18 bigfs">重量：
+				<div id="size_sel">
+					{% for shopattr in shopattrs -%}
+							<a  data="{{shopattr.price}}" data-id="{{shopattr.id}}">{{shopattr.name}}</a>
+					{%- endfor %}
+				</div>
+			</font><br/>
+			<font class="fs18 bigfs">数量：
+				<div id="num_sel">
+					<div class="cakenumbox">
+						<input type="text" name="num" id="num" value="1">
+						<span class="increase titico" onclick="increase()"></span>
+                   		<span class="decrease titico" onclick="decrease()"></span>
+					</div>
+				</div>
+			</font><br/>
+			<font class="fs18 bigfs">简介：{{shop.resume}}</font><br/>
+		</p>
         <div class="buttons-wrapper"><a class="btn btn-1" data-type="submit" name="addshop" id="addshop" value="">加入购物车</a></div>
-
     </div>
 </div>
-
 <script>
 Do.ready(function(){
 	$('#imgplayer > a').click(function(){

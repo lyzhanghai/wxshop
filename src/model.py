@@ -46,6 +46,7 @@ class Ad(db.Model):
 class User(db.Model):
     id = db.PrimaryKeyField()
     mobile = db.CharField(unique = True, max_length = 11, null = False) #注册手机号
+    openid = db.CharField(max_length = 32) #微信号
     password = db.CharField(max_length = 32) #密码
     realname = db.CharField(max_length = 10) #真实姓名
     gender = db.TinyIntegerField(max_length = 1, default = 2) #性别 0男 1女 2未知

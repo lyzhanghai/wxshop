@@ -64,7 +64,7 @@
                 送货地址：{{order.ua.city|null}} {{order.ua.region|null}} {{order.ua.address|null}} {{order.ua.name|null}} {{order.ua.tel|null}} {{order.ua.mobile|null}}<br>
                 付款：{% if order.payment == 0-%}货到付款{%-else-%}在线支付{%-endif%}<br>
                 留言：{{order.message}}<br>
-                发票：{%if order.isinvoice%}<font color=red>开发票</font>{%endif%} 抬头：{%if order.invoicesub == 0-%}个人{%-else-%}公司{%-endif%} {{order.invoicename}} 类型：{%if order.invoicecontent == 0-%}蛋糕{%-else-%}食品{%-endif%}</p>
+                发票：{%if order.isinvoice%}<font color=red>开发票</font>{%endif%} 抬头：{%if order.invoicesub == 0-%}个人{%-else-%}公司{%-endif%} {{order.invoicename}} 类型：{%if order.invoicecontent == 0-%}农副产品{%-else-%}食品{%-endif%}</p>
                 	</div>
                 </td>
             </tr>
