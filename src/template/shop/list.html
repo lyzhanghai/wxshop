@@ -1,7 +1,8 @@
 {% extends "layout/site.html" %}
 
 {% block title %}产品列表{% endblock %}
-{% block css %}list{% endblock %}
+{% block css %}jquery.mobile-1.4.2.min{% endblock %}
+{% block js %}jquery.mobile-1.4.2.min{% endblock %}
 {% block content %}
 <div class="blank10"></div>
 <!--<div class="wapper">
@@ -13,18 +14,27 @@
 <div class="blank10"></div>
 <div class="wapper">
 {% if total > 0 -%}
-        <ul class="cake_list">
         {% for shop in shops -%}
-            <li>
-                <a href="/shop/{{shop.ename}}"><img src="/upload/{{ shop.cover }}" width="280px" height="250px;"></a>
+		<div class="ui-grid-a">
+			{% if loop.index % 2 == 1 %}<div class="ui-block-a">
+				<a href="/shop/{{shop.ename}}"><img src="/upload/{{ shop.cover }}" width="280px" height="250px;"></a>
                 <div class="cakedesc">
                     <p class="bigfs fs22 mt20"><font class="oc">￥{{ shop.price }}元</font></p>
                     <a href="/shop/{{shop.ename}}" class="bigfs fs14">{{ shop.ename }}{{ shop.name }}</a>
-                </div>
-            </li>
+                </div></div>
+			{% elif loop.index % 2 == 0 %}<div class="ui-block-b">
+				<a href="/shop/{{shop.ename}}"><img src="/upload/{{ shop.cover }}" width="280px" height="250px;"></a>
+                <div class="cakedesc">
+                    <p class="bigfs fs22 mt20"><font class="oc">￥{{ shop.price }}元</font></p>
+                    <a href="/shop/{{shop.ename}}" class="bigfs fs14">{{ shop.ename }}{{ shop.name }}</a>
+                </div></div>
+			</div>
+			{% endif %}
+			
+			
+		</div>
 		{%- endfor %}
-        </ul>
-
+		
 
 {{ module.Paginate(total, pagesize, page) }}
 
