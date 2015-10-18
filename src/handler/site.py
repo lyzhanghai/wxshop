@@ -189,12 +189,18 @@ class SignUpHandler(BaseHandler):
         if 'oauth' in self.session:
             oauth = self.session['oauth']
         code = self.get_argument("code", None)
-        openid=None
-	if code:
-	    openid = weixin.get_openid(self , code)
-	    print ""+openid
-    
-        self.render("/responsive/signup.html", oauth = oauth ,openid = openid)
+        appid = self.settings['weixin_appid']
+        url_w = self.settings['weixin_url']
+        print ''+appid
+        print ''+url_w
+        openid='openid'
+        if code:
+	       openid = weixin.get_openid(self , code)
+        else:
+           print 'code null'
+        print ''+openid
+        
+        self.render("/responsive/signup.html", oauth = oauth ,openid = openid,appid =appid,url_w = url_w)
     
     def post(self):
         if self.get_current_user():
