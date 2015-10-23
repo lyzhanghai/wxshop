@@ -29,8 +29,8 @@ ALIPAY_NOTIFY_URL='http://www.xxx.com/alipay/notify'
 ALIPAY_SHOW_URL=''
 ALIPAY_TRANSPORT='https'
 
-SMS_KEY = 0
-SMS_SECRET = ''
+SMS_KEY = 3691
+SMS_SECRET = '23b30104cbcb503f35c0dba876f826b10d3c7a53'
 SMS_GATEWAY = 'http://sms.bechtech.cn/Api/send/data/json'
 WEIXIN_TOKEN = '111111'
 WEIXIN_APPID = 'wx5260558149fcc502'
