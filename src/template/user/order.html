@@ -45,11 +45,10 @@
                                     <td width="2%" height="90px;"></td>
                                     <td width="71%">
                                     <a class="fl" href="/shop/{{orderitem.shop.ename}}"><img src="/upload/{{orderitem.shop.cover}}"></a>
-                                        <p class="fl ml10">
-                                            <a class="fs14" href="/shop/{{orderitem.shop.ename}}">{{orderitem.shop.name}}</a><br/>
-                                            {%if orderitem.shopattr -%}规格：{{orderitem.shopattr.name}}{%-endif%} 免费配送10套餐具
-                                        </p>
-                                    </td>
+                                    <p class="fl ml10">
+                                        <a class="fs14" href="/shop/{{orderitem.shop.ename}}">{{orderitem.shop.name}}</a><br/>
+				    </p>
+				    </td>
                                     {%if orderitem.shopattr%}
                                     {%set price = orderitem.shopattr.price%}
                                     {%else%}

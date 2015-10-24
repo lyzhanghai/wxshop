@@ -18,7 +18,6 @@
 
 <body>
 <div class="wapper head">
-    <div class="headtel">免费配送 021-88888888 </div>
     <div class="fr headinfo">
         <div id="userinfo" class="fr">
         {% if user -%}<a>你好{{user.mobile}}</a><span class="fl">&nbsp;</span><a href="/signout">退出</a><a href="/order"  class="ico shopping">我的购物车</a><span class="fl">&nbsp;|&nbsp;</span><a href="/user">我的订单</a> {%if user.group == 9 -%}<span class="fl">&nbsp;|&nbsp;</span><a href="/admin">网站管理</a> {%endif %}
