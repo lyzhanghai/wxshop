@@ -30,4 +30,6 @@ vi setting.py
 python manager.py --cmd=syncdb
 
 三 开始运行
+/etc/init.d/mysqld start
+/etc/init.d/memcached start
 python manager.py
