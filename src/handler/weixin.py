@@ -20,6 +20,13 @@ def get_openid(self,code):
 
 @route(r'/weixin', name='weixin_index')
 class indexHandler(BaseHandler):
+    def get_code(self):
+	url='https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_base#wechat_redirect' % (
+       	self.settings['weixin_appid'], self.settings['weixin_url']+'/weixin')
+	request = urllib2.Request(url)
+	request.add_header('User-Agent', 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B176 MicroMessenger/4.3.2')
+        reader= urllib2.urlopen(request).read()
+
     def get_access_token(self):
         url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s' % (
         self.settings['weixin_appid'], self.settings['weixin_secret'])
@@ -42,8 +49,7 @@ class indexHandler(BaseHandler):
                {    
                    "type":"view",
                    "name":"登录/注册",
-                   "url":'https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_base#wechat_redirect' % (
-        self.settings['weixin_appid'], self.settings['weixin_url']+'/signup')
+                   "url":self.settings['weixin_url']+'/signin'
                 },
                 {    
                    "type":"view",
