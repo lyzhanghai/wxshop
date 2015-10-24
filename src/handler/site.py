@@ -63,6 +63,20 @@ class ApplyHandler(BaseHandler):
             self.flash(str(ex))
         
         self.render("site/apply.html")
+@route(r'/share', name='share') #分享
+class ShareHandler(BaseHandler):
+
+    def get(self):
+	sharer = self.get_argument("sharer", None)
+        user=self.get_current_user()
+
+        oauth = None
+        if 'oauth' in self.session:
+            oauth = self.session['oauth']
+	if user:
+            self.render("site/share.html", oauth = oauth, next = self.next_url)
+	else:
+            self.render("site/signup.html", oauth = oauth, next = self.next_url,sharer = sharer)   
 
 @route(r'/signin', name='signin') #登录
 class SignInHandler(BaseHandler):
@@ -146,7 +160,7 @@ class SignUpHandler(BaseHandler):
         password = self.get_argument("password", None)
         apassword = self.get_argument("apassword", None)
         vcode = self.get_argument("vcode", None)
-        
+        sharer = self.get_argument("sharer", None) 
         
         user = User()
         user.mobile = mobile
@@ -175,8 +189,10 @@ class SignUpHandler(BaseHandler):
                             
                             del self.session['oauth']
                             self.session.save()
-                        
-                        self.flash("注册成功，请先登录。", "ok")
+                        User.update(credit = User.credit + 1).where(User.mobile == mobile).execute()
+                        #if sharer != None
+                        User.update(credit = User.credit + 1).where(User.mobile == sharer).execute()
+			self.flash("注册成功，请先登录。", "ok")
                         self.redirect("/signin")
                         return
                     else:
