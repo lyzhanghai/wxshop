@@ -12,6 +12,12 @@ import time
 import urllib2
 import json
 
+def get_openid(self,code):
+        url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code' % (
+        self.settings['weixin_appid'], self.settings['weixin_secret'], code)
+        result = urllib2.urlopen(url).read()
+        return json.loads(result).get('openid')
+
 @route(r'/weixin', name='weixin_index')
 class indexHandler(BaseHandler):
     def get_access_token(self):

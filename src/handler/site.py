@@ -6,9 +6,7 @@ from tornado.web import HTTPError
 from handler import BaseHandler
 from lib.route import route
 from model import Oauth, User, UserVcode, Page, Apply, Shop, Ad
-import urllib2
-import json
-
+import weixin
 @route(r'/', name='index') #首页
 class IndexHandler(BaseHandler):
     
@@ -142,11 +140,6 @@ class SignInHandler(BaseHandler):
 @route(r'/signup', name='signup') #注册
 class SignUpHandler(BaseHandler):
     
-    def get_openid(self,code):
-        url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code' % (
-        self.settings['weixin_appid'], self.settings['weixin_secret'], code)
-        result = urllib2.urlopen(url).read()
-        return json.loads(result).get('openid')
     def get(self):
         if self.get_current_user():
             self.redirect("/")
@@ -157,7 +150,7 @@ class SignUpHandler(BaseHandler):
             oauth = self.session['oauth']
         code = self.get_argument("code", None)
         print code
-        openid = self.get_openid(code)
+        openid = weixin.get_openid(self , code)
         print openid
     
         self.render("site/signup.html", oauth = oauth ,openid = openid)
