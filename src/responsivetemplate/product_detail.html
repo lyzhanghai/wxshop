@@ -11,12 +11,17 @@
 	<link rel="stylesheet" href="../responsivestyle/css/bootstrap.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="../responsivestyle/css/responsive.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="../responsivestyle/css/style.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="../responsivestyle/css/touchTouch.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="../responsivestyle/css/kwicks-slider.css" type="text/css" media="screen">
 <!-- 	<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" type="text/css" media="screen"> -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="../responsivestyle/js/jquery.js"></script>
 	<script type="text/javascript" src="../responsivestyle/js/superfish.js"></script>
+	<script type="text/javascript" src="../responsivestyle/js/jquery.flexslider-min.js"></script>
+	<script type="text/javascript" src="../responsivestyle/js/jquery.kwicks-1.5.1.js"></script>
 	<script type="text/javascript" src="../responsivestyle/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="../responsivestyle/js/jquery.cookie.js"></script> 
+	<script type="text/javascript" src="../responsivestyle/js/touchTouch.jquery.js"></script>
 <!-- 	<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>      -->
     
 	<script type="text/javascript">if($(window).width()>1024){document.write("<"+"script src='../responsivestyle/js/jquery.preloader.js'></"+"script>");}	</script>
@@ -60,20 +65,14 @@
         <div class="navbar navbar_">
               <div class="container">
             <h1 class="brand brand_"><a href="index.html"><img alt="" src=""> </a></h1>
-            <a class="btn btn-navbar btn-navbar_" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
+            <a class="btn btn-navbar btn-navbar_" data-toggle="collapse" data-target=".nav-collapse_">菜单 <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
                   <ul class="nav sf-menu">
                 <li><a href="index.html">首页</a></li>
 <!--                 <li><a href="work.html">Work</a></li> -->
 <!--                 <li><a href="blog.html">Blog</a></li> -->
                 <li><a href="product.html">商品列表</a></li>
-                <li class="sub-menu"><a href="user.html">我是会员</a>
-                	<ul>
-	                    <li><a href="#">会员首页</a></li>
-	                    <li><a href="#">会员信息</a></li>
-	                    <li><a href="#">找回\修改密码</a></li>
-                  	</ul>
-                </li>
+                <li class="sub-menu"><a href="user.html">我是会员</a></li>
               </ul>
                 </div>
           </div>
@@ -85,28 +84,24 @@
 <div class="bg-content">       
   <!--  content  -->      
    <div id="content"><div class="ic"></div>
-    <div class="container">
-          <div class="row">
-        <article class="span8">
-         <div class="inner-1">         
-          <ul class="list-blog">
-            <li>  
-            <div class="clear"></div>            
-              <img alt="" src="../responsivestyle/img/blog-1.jpg">                               
-            </li>  
+   <div class="container">
+    <div class="row">
+          <div class="span12"> 
+        <!-- slider -->
+        <div class="flexslider">
+              <ul class="slides">
+            <li> <img src="../responsivestyle/img/slide-1.jpg" alt="" > </li>
+            <li> <img src="../responsivestyle/img/slide-2.jpg" alt="" > </li>
+            <li> <img src="../responsivestyle/img/slide-3.jpg" alt="" > </li>
+            <li> <img src="../responsivestyle/img/slide-4.jpg" alt="" > </li>
+            <li> <img src="../responsivestyle/img/slide-5.jpg" alt="" > </li>
           </ul>
-          </div>  
-        </article>
-        <article class="span4">
-        <ul class="list-blog">
-        <li>
-        
-          	<div class="clear"></div>   
-          	商品1
-          <h3 class="extra">价格 100 元</h3>
+            </div>
+            <div class="clear"></div>   
+          	<span>商品1</span></br>
+          <span>价格 100 元</span>
           <form id="contact-form">
-                  <div class="success"> Your message has been sent succesfuly!<strong> We will be in touch soon.</strong> </div>
-                  <fieldset>
+              <fieldset>
                 <div>
                     <label class="name">数量：
                     <input type="number" value="1">
@@ -115,11 +110,11 @@
                 <div class="buttons-wrapper"><a class="btn btn-1" data-type="submit">加入购物车</a></div>
               </fieldset>
           </form>
-          </li>  
-         </ul>
-        </article>
+          </div>  
+        <span id="responsiveFlag"></span>
       </div>
-     </div>
+        </div>
+  </div>
   </div>
  </div>
 
