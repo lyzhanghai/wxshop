@@ -26,7 +26,7 @@
         <p class="fs22 borbom mt20">价格 <font class="oc" id="price">{{shop.price}}</font> 元</p>
         <p class="borbom mt20 pb10">{{shop.resume}}</p>
         <div class="borbom item clearfix bgffffbf">
-            <span>尺寸</span>
+            <span>重量</span>
             <div id="size_sel">
             {% for shopattr in shopattrs -%}
 				<a  data="{{shopattr.price}}" data-id="{{shopattr.id}}">{{shopattr.name}}</a>
@@ -42,15 +42,6 @@
             </div>
         </div>
         <p class="tac mt20"><input type="button" class="titico sbsbut" name="addshop" id="addshop" value=""></p>
-        <div class="borbom item clearfix">
-            <span>甜度</span>
-            <div class="sweet_sel">
-                <em>
-                	{%-for i in range(shop.level)-%}
-                		<i style="width:12px; margin-right:2px" class="fl"></i>
-                    {%-endfor%}
-                </em>
-            </div>
         </div>
         
         <div class="item clearfix pt10">
@@ -193,7 +184,7 @@ Do.ready(function(){
     $('#addshop').click(function(event) {
         if ($('#size_sel a.on').size() == 0)
         {
-            alert('请选择尺寸');
+            alert('请选择重量');
             return;
         }
         $.post('/ajax/addshop', {sid:sid, said:$('#size_sel a.on').attr('data-id'), num:num, _xsrf:xsrf}, function(data) {

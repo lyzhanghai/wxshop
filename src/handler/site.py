@@ -6,7 +6,7 @@ from tornado.web import HTTPError
 from handler import BaseHandler
 from lib.route import route
 from model import Oauth, User, UserVcode, Page, Apply, Shop, Ad
-
+import weixin
 @route(r'/', name='index') #首页
 class IndexHandler(BaseHandler):
     
@@ -63,6 +63,20 @@ class ApplyHandler(BaseHandler):
             self.flash(str(ex))
         
         self.render("site/apply.html")
+@route(r'/share', name='share') #分享
+class ShareHandler(BaseHandler):
+
+    def get(self):
+	sharer = self.get_argument("sharer", None)
+        user=self.get_current_user()
+
+        oauth = None
+        if 'oauth' in self.session:
+            oauth = self.session['oauth']
+	if user:
+            self.render("site/share.html", oauth = oauth, next = self.next_url)
+	else:
+            self.render("site/signup.html", oauth = oauth, next = self.next_url,sharer = sharer)   
 
 @route(r'/signin', name='signin') #登录
 class SignInHandler(BaseHandler):
@@ -134,8 +148,15 @@ class SignUpHandler(BaseHandler):
         oauth = None
         if 'oauth' in self.session:
             oauth = self.session['oauth']
-        
-        self.render("site/signup.html", oauth = oauth)
+        code = self.get_argument("code", None)
+        if code:
+	    openid = weixin.get_openid(self , code)
+	    print ""+openid
+        else:
+	    weixin.get_code(self)
+	    return
+    
+        self.render("site/signup.html", oauth = oauth ,openid = openid)
     
     def post(self):
         if self.get_current_user():
@@ -146,10 +167,13 @@ class SignUpHandler(BaseHandler):
         password = self.get_argument("password", None)
         apassword = self.get_argument("apassword", None)
         vcode = self.get_argument("vcode", None)
-        
+        sharer = self.get_argument("sharer", None)
+        openid = self.get_argument("openid", None) 
         
         user = User()
         user.mobile = mobile
+        user.openid = openid
+        print openid
         user.password = User.create_password(password)
         
         try:
@@ -175,8 +199,10 @@ class SignUpHandler(BaseHandler):
                             
                             del self.session['oauth']
                             self.session.save()
-                        
-                        self.flash("注册成功，请先登录。", "ok")
+                        User.update(credit = User.credit + 1).where(User.mobile == mobile).execute()
+                        #if sharer != None
+                        User.update(credit = User.credit + 1).where(User.mobile == sharer).execute()
+			self.flash("注册成功，请先登录。", "ok")
                         self.redirect("/signin")
                         return
                     else:

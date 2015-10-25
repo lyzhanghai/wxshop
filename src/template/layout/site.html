@@ -21,7 +21,6 @@
 
 <body>
 <div class="wapper head">
-    <div class="headtel">免费配送 0519-81297639 </div>
     <div class="fr headinfo">
         <div id="userinfo" class="fr">
         {% if user -%}<a>你好{{user.mobile}}</a><span class="fl">&nbsp;</span><a href="/signout">退出</a><a href="/order"  class="ico shopping">我的购物车</a><span class="fl">&nbsp;|&nbsp;</span><a href="/user">我的订单</a> {%if user.group == 9 -%}<span class="fl">&nbsp;|&nbsp;</span><a href="/admin">网站管理</a> {%endif %}
@@ -112,9 +111,6 @@
                 </div>
                 <div class="item">
                    <span>密码：</span><input type="password" name="password" class="fl">
-                </div>
-                <div class="item">
-                    <span>&nbsp;</span><a class="oc fs14">忘记密码</a>
                 </div>
                 <div class="itembut">
                     <span>&nbsp;</span><input type="submit" class="titico bsbut" value="登陆">
