@@ -1,124 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-	<title>Codester | Blog</title>
-	<meta charset="utf-8">
-    <meta name="description" content="Codester is a free responsive Bootstrap template by Dzyngiri">
-    <meta name="keywords" content="free, template, bootstrap, responsive">
-    <meta name="author" content="Inbetwin Networks">  
-	<link rel="stylesheet" href="../responsivestyle/css/bootstrap.css" type="text/css" media="screen">
-	<link rel="stylesheet" href="../responsivestyle/css/responsive.css" type="text/css" media="screen">
-	<link rel="stylesheet" href="../responsivestyle/css/style.css" type="text/css" media="screen">
-	<link rel="stylesheet" href="../responsivestyle/css/touchTouch.css" type="text/css" media="screen">
-	<link rel="stylesheet" href="../responsivestyle/css/kwicks-slider.css" type="text/css" media="screen">
-	<script type="text/javascript" src="../responsivestyle/js/jquery.js"></script>
-	<script type="text/javascript" src="../responsivestyle/js/superfish.js"></script>
-	<script type="text/javascript" src="../responsivestyle/js/jquery.flexslider-min.js"></script>
-	<script type="text/javascript" src="../responsivestyle/js/jquery.kwicks-1.5.1.js"></script>
-	<script type="text/javascript" src="../responsivestyle/js/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="../responsivestyle/js/jquery.cookie.js"></script> 
-	<script type="text/javascript" src="../responsivestyle/js/touchTouch.jquery.js"></script>
-    
-	<script type="text/javascript">if($(window).width()>1024){document.write("<"+"script src='../responsivestyle/js/jquery.preloader.js'></"+"script>");}	</script>
-	<script>		
-		 jQuery(window).load(function() {	
-		 $x = $(window).width();		
-	if($x > 1024)
-	{			
-	jQuery("#content .row").preloader();}	
-	
-	jQuery(".list-blog li:last-child").addClass("last"); 
-	jQuery(".list li:last-child").addClass("last"); 
-
-	
-    jQuery('.spinner').animate({'opacity':0},1000,'easeOutCubic',function (){jQuery(this).css('display','none')});	
-  		  }); 
+{% extends "/layout/base.html" %}
+{% block js %}
+	jQuery(window).load(function() {	
+		$x = $(window).width();		
+		if($x > 1024)
+		{			
+			jQuery("#content .row").preloader();
+		}	
+		jQuery(".list-blog li:last-child").addClass("last"); 
+		jQuery(".list li:last-child").addClass("last"); 
+		jQuery('.spinner').animate({'opacity':0},1000,'easeOutCubic',function (){jQuery(this).css('display','none')});	
+  	}); 
+{% endblock %} 
+		 
 					
-	</script>
-
-	<!--[if lt IE 8]>
-  		<div style='text-align:center'><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http://www.theie6countdown.com/img/upgrade.jpg"border="0"alt=""/></a></div>  
- 	<![endif]-->
-	<!--[if (gt IE 9)|!(IE)]><!-->
-	<!--<![endif]-->
-	<!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <link rel="stylesheet" href="css/docs.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
-  <![endif]-->
-	</head>
-
-	<body>
-<div class="spinner"></div>
-<!--  header  -->
-<header>
-      <div class="container clearfix">
-    <div class="row">
-          <div class="span12">
-        <div class="navbar navbar_">
-              <div class="container">
-            <h1 class="brand brand_"><a href="index.html"><img alt="" src=""> </a></h1>
-            <a class="btn btn-navbar btn-navbar_" data-toggle="collapse" data-target=".nav-collapse_">菜单 <span class="icon-bar"></span> </a>
-            <div class="nav-collapse nav-collapse_  collapse">
-                  <ul class="nav sf-menu">
-                <li><a href="index.html">首页</a></li>
-<!--                 <li><a href="work.html">Work</a></li> -->
-<!--                 <li><a href="blog.html">Blog</a></li> -->
-                <li><a href="product.html">商品列表</a></li>
-                <li class="sub-menu"><a href="user.html">我是会员</a></li>
-              </ul>
-                </div>
-          </div>
-            </div>
-      </div>
-        </div>
-  </div>
-</header>
-<div class="bg-content">       
-  <!--  content  -->      
-   <div id="content"><div class="ic"></div>
+{% block content %}  
+   <div id="content">
    <div class="container">
     <div class="row">
           <div class="span12"> 
         <!-- slider -->
         <div class="flexslider">
               <ul class="slides">
-            <li> <img src="../responsivestyle/img/slide-1.jpg" alt="" > </li>
-            <li> <img src="../responsivestyle/img/slide-2.jpg" alt="" > </li>
-            <li> <img src="../responsivestyle/img/slide-3.jpg" alt="" > </li>
-            <li> <img src="../responsivestyle/img/slide-4.jpg" alt="" > </li>
-            <li> <img src="../responsivestyle/img/slide-5.jpg" alt="" > </li>
+            <li> <img src="/style/responsive/img/slide-1.jpg" alt="" > </li>
+            <li> <img src="/style/responsive/img/slide-2.jpg" alt="" > </li>
+            <li> <img src="/style/responsive/img/slide-3.jpg" alt="" > </li>
+            <li> <img src="/style/responsive/img/slide-4.jpg" alt="" > </li>
+            <li> <img src="/style/responsive/img/slide-5.jpg" alt="" > </li>
           </ul>
             </div>
             <div class="clear"></div>   
           	<span>商品1</span></br>
-          <span>价格 100 元</span>
-          <form id="contact-form">
-              <fieldset>
-                <div>
-                    <label class="name">数量：
-                    <input type="number" value="1">
-                </div>
-                </br>
-                <div class="buttons-wrapper"><a class="btn btn-1" data-type="submit">加入购物车</a></div>
-              </fieldset>
-          </form>
+          	<span>价格 100 元</span>
+	          <form id="contact-form">
+	              <fieldset>
+	                <div>
+	                    <label class="name">数量：
+	                    <input type="number" value="1">
+	                </div>
+	                </br>
+	                <div class="buttons-wrapper"><a class="btn btn-1" data-type="submit">加入购物车</a></div>
+	              </fieldset>
+	          </form>
           </div>  
         <span id="responsiveFlag"></span>
       </div>
-        </div>
+     </div>
   </div>
-  </div>
- </div>
-
-<!--  footer  -->
-<footer>
-      <div class="container clearfix">
-    <div class="privacy pull-right">&copy; Copyright &copy; 2015菜市优品 All RightRevesed.</div>
-  </div>
-    </footer>
-<script type="text/javascript" src="../responsivestyle/js/bootstrap.js"></script>
-</body>
-</html>
+{% endblock %}
