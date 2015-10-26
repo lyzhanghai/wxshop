@@ -73,11 +73,17 @@ class ShareHandler(BaseHandler):
         oauth = None
         if 'oauth' in self.session:
             oauth = self.session['oauth']
-	if user:
-            self.render("site/share.html", oauth = oauth, next = self.next_url)
+	if sharer:
+	    if user:
+                self.render("site/share.html", oauth = oauth, next = self.next_url)
+	    else:
+                self.render("site/signup.html", oauth = oauth, next = self.next_url,sharer = sharer)   
 	else:
-            self.render("site/signup.html", oauth = oauth, next = self.next_url,sharer = sharer)   
-
+	    if user:
+	        url="/share?sharer="+user.mobile
+                self.redirect(url)
+	    else:
+                self.redirect("/signup")	
 @route(r'/signin', name='signin') #登录
 class SignInHandler(BaseHandler):
     
