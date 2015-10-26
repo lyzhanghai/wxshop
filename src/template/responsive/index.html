@@ -42,7 +42,28 @@
         <h3>新品上市</h3>
          </article>
         <div class="clear"></div>
-	         <ul class="portfolio clearfix">           
+	         <ul class="portfolio clearfix">         
+		{% for shop in shops -%}
+
+                        {% if loop.index % 2 == 1 %}
+                        <div class="ui-block-a">
+                                <a href="/shop/{{shop.ename}}"><img src="/upload/{{ shop.cover }}" width="99%" height="350px"></a>
+                <div class="cakedesc">
+                    <p class="bigfs fs22 mt20"><font class="oc">￥{{ shop.price }}元</font></p>
+                    <a href="/shop/{{shop.ename}}" class="bigfs fs14">{{ shop.ename }}{{ shop.name }}</a>
+                </div>
+                        </div>
+                        {% elif loop.index % 2 == 0 %}
+                        <div class="ui-block-b">
+                                <a href="/shop/{{shop.ename}}"><img src="/upload/{{ shop.cover }}" width="99%" height="350px"></a>
+                <div class="cakedesc">
+                    <p class="bigfs fs22 mt20"><font class="oc">￥{{ shop.price }}元</font></p>
+                    <a href="/shop/{{shop.ename}}" class="bigfs fs14">{{ shop.ename }}{{ shop.name }}</a>
+                </div>
+                        </div>
+                        {% endif %}
+
+                {%- endfor %}  
 	           <li class="box"><a href="product_detail.html"><img alt="" src="/style/responsive/img/work/1.jpg"></a></li> 
 	           <li class="box"><a href="/style/responsive/img/image-blank.png" class="magnifier" ><img alt="" src="/style/responsive/img/work/2.jpg"></a></li> 
 	           <li class="box"><a href="/style/responsive/img/image-blank.png" class="magnifier" ><img alt="" src="/style/responsive/img/work/3.jpg"></a></li> 
