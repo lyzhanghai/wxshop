@@ -21,7 +21,7 @@ class IndexHandler(BaseHandler):
         for shop in Shop.select(Shop.name, Shop.ename, Shop.cover, Shop.price).where(Shop.status == 1).limit(6):
             shop.price = shop.price.split("~")[0]
             recomm.append(shop)
-        self.render("site/index.html", ads = ads, newest = newest, recomm = recomm)
+        self.render("responsive/index.html", ads = ads, newest = newest, recomm = recomm)
 
 @route(r'/apply', name='apply') #集团购买/会员特惠
 class ApplyHandler(BaseHandler):
