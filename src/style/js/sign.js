@@ -5,7 +5,6 @@ function toRegister(){
     window.location.href="/signup";
 }
 function login(){
-	alert('login');
 	$("#contact-form").submit();
 }
 $(function(){

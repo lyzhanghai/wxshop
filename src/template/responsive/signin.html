@@ -16,6 +16,15 @@
               <div class="inner-1">
             	<form id="contact-form" action="/signin" method="post">
                   <fieldset>
+                  	{%set messages=handler.get_flashed_messages() %}
+                    {%-if messages-%}
+                        <div><span class="error">
+                            {% for type, msg in messages%}
+                                {{msg}}
+                            {% endfor %}
+                            </span>
+                        </div>
+                    {%-endif-%}
 	                <div>
 	                    <label class="name">账号：</label>
 	                    <input type="text" value="" name="mobile">
