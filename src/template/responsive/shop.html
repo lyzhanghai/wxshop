@@ -1,0 +1,136 @@
+{% extends "/layout/base.html" %}
+{% block myjs %}
+<script type="text/javascript" src="/style/js/do.js"></script>
+<script type="text/javascript" src="/style/js/shop.js"></script>
+{% endblock %}
+
+{% block content %}  
+   <div class="wapper">
+    <div class="cakeinfo">
+        <p class="borbom"><font class="fs22 bigfs"  id="shop" data-id="{{shop.id}}">{{shop.name}}</font><br/><font class="fs18 bigfs">{{shop.ename}}</font></p>
+        <p class="fs22 borbom mt20">价格 <font class="oc" id="price">{{shop.price}}</font> 元</p>
+        <p class="borbom mt20 pb10">{{shop.resume}}</p>
+        <div class="borbom item clearfix bgffffbf">
+            <span>重量</span>
+            <div id="size_sel">
+            {% for shopattr in shopattrs -%}
+				<a  data="{{shopattr.price}}" data-id="{{shopattr.id}}">{{shopattr.name}}</a>
+			{%- endfor %}
+            </div>
+            <span>数量</span>
+            <div id="num_sel">
+                <div class="cakenumbox">
+                    <input type="text" name="num" id="num" value="1">
+                    <a class="increase titico"></a>
+                    <a class="decrease titico"></a>
+                </div>
+            </div>
+
+        <div class="buttons-wrapper"><a class="btn btn-1" data-type="submit" name="addshop" id="addshop" value="">加入购物车</a></div>
+
+    </div>
+</div>
+
+<script>
+Do.ready(function(){
+	$('#imgplayer > a').click(function(){
+		$(this).addClass('on').siblings('a').removeClass('on');
+		$('#bigimg').attr('src',$(this).find('img').attr('src'));
+	})
+    var xsrf='{{handler.xsrf_token}}';
+    var num = 1;
+    var sid = $('#shop').attr('data-id');
+    function loadconsults(sid) {
+        var page = 1;
+        function render(pages, data) {
+            var html = '';
+            var dl = data.length;
+            for (i = 0; i < data.length; i++)
+            {
+                var consult = data[i];
+                html = html + '<dl class="mt20"><dt class="titico ask mb5">咨询内容：' + consult.content + '</dt>';
+				if( consult.reply.length > 0 ){	
+					html = html + '<dd class="titico ans mb5">回复：' + consult.reply + ' <font class="fr mr10">' + new Date(parseInt(consult.replyed) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ") + '</font></dd>';
+				}
+				html = html + '</dl>';
+				console.log(html);
+            }
+            if (pages > 1)
+            {
+                html = html + '<p>';
+                for (i = 1; i <= pages; i++)
+                {
+                    html += '<a href="">'
+                }
+                html = html + '</p>';
+            }
+            $('#consults').html(html);
+        }
+
+        $.getJSON('/ajax/consults/' + sid + '?page' + page, function(data){
+            if (data.total > 0)
+            {
+                render(data.pages, data.data);
+            }
+        });
+    }
+    loadconsults(sid);
+    $('#size_sel a').click(function(event) {
+        $('#size_sel a').removeClass('on');
+        $(this).addClass('on');
+        $('#price').text(parseInt($(this).attr('data'))* $('#num').val());
+        return false;
+    });
+    $('#num').change(function(event) {
+        num = parseInt($(this).val());
+        if ($('#size_sel a.on').size() == 1)
+        {
+            $('#price').text($('#size_sel a.on').attr('data') * num);
+        } 
+    });
+
+    $('#addshop').click(function(event) {
+        if ($('#size_sel a.on').size() == 0)
+        {
+            alert('请选择重量');
+            return;
+        }
+        $.post('/ajax/addshop', {sid:sid, said:$('#size_sel a.on').attr('data-id'), num:num, _xsrf:xsrf}, function(data) {
+            switch(data.msg)
+            {
+                case 200:
+                alert('下单成功，跳转购物车。');window.location.href='/order';
+                break;
+                case 400:alert('请选择商品');break;
+                case 403:alert('请先登录');break;
+                case 404:alert('商品已下架');break;
+                case 500:alert('系统出错，请稍后再试');break;
+            }
+        }, 'json');
+    });
+
+    $('#commentform').submit(function(){
+        if ($.trim($('#content').val()) == '' || $.trim($('#vcode').val()) == '')
+        {
+            alert('请输入咨询内容和4位验证码');
+            return false;
+        }
+        $.post('/ajax/comment/' + sid,  $(this).serialize() + '&_xsrf=' + xsrf, function(data) {
+            switch(data.msg)
+            {
+                case 200:alert('评论成功');loadconsults(sid);break;
+                case 400:alert('请输入咨询内容和4位验证码'); break;
+                case 401:alert('请输入正确的验证码');break;
+                case 403:alert('请先登录');break;
+                case 500:alert('系统出错，请稍后再试');break;
+            }
+        }, 'json');
+        return false;
+    });
+	$('#size_sel a:eq(0)').trigger('click');
+})
+</script>
+
+{% endblock %}
+
+

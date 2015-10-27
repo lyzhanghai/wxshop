@@ -89,7 +89,7 @@ class ShopHandler(BaseHandler):
         pics = ShopPic.select().where(ShopPic.sid == shop.id)
         
         recomshops = Shop.select().where((Shop.status == 1) & (Shop.id != shop.id)).paginate(1, 5)
-        self.render("shop/shop.html", shop = shop, category = category, categoryattrs = categoryattrs, shopattrs = shopattrs, pics = pics, recomshops = recomshops)
+        self.render("/responsive/shop.html", shop = shop, category = category, categoryattrs = categoryattrs, shopattrs = shopattrs, pics = pics, recomshops = recomshops)
 
 @route(r'/order', name='order') #购物车
 class OrderHandler(BaseHandler):
