@@ -23,12 +23,10 @@
 		        <div class="span12"> 
 		        	<div class="flexslider">
 		              <ul class="slides">
-		                <li> <img src="/style/responsive/img/slide-1.jpg" alt="" > </li>
-			            <li> <img src="/style/responsive/img/slide-2.jpg" alt="" > </li>
-			            <li> <img src="/style/responsive/img/slide-3.jpg" alt="" > </li>
-			            <li> <img src="/style/responsive/img/slide-4.jpg" alt="" > </li>
-			            <li> <img src="/style/responsive/img/slide-5.jpg" alt="" > </li>
-		         	  </ul>
+		         	 {% for ad in ads -%}
+                		<li><a href="{{ad.url}}"><img src="/upload/ad/{{ad.id}}.jpg" alt="{{ad.id}}" width="960" height="315"/></a></li>
+                		{%-endfor%}  
+				</ul>
 		            </div>
 		        <span id="responsiveFlag"></span>
 		      	</div>
