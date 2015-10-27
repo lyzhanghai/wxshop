@@ -35,9 +35,7 @@
   padding-left: 20px; }
 
 .cakeinfo {
-  width: 360px;
-  margin-left: 20px;
-  float: left; }
+    text-align: center; }
 
 .borbomdd {
   border-bottom: 1px solid #dddddd; }

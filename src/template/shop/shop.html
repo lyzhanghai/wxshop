@@ -6,14 +6,6 @@
 {% block content %}
 <div class="blank10"></div>
 <div class="wapper">
-    <div id="cakeimages">
-    	{% for pic in pics -%}
-        	{% if loop.index == 1 %}
-            	<img src="/upload/{{pic.path}}" id="bigimg" width="300px" height="300px">
-            {% endif %}
-		{%- endfor %}
-        
-    </div>
     <div class="cakeinfo">
         <p class="borbom"><font class="fs22 bigfs"  id="shop" data-id="{{shop.id}}">{{shop.name}}</font><br/><font class="fs18 bigfs">{{shop.ename}}</font></p>
         <p class="fs22 borbom mt20">价格 <font class="oc" id="price">{{shop.price}}</font> 元</p>
@@ -36,22 +28,7 @@
         </div>
         <p class="tac mt20"><input type="button" class="titico sbsbut" name="addshop" id="addshop" value=""></p>
         </div>
-        
-        <div class="item clearfix pt10">
-            <span>&nbsp;</span>
-            <!-- Baidu Button BEGIN -->
-            <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
-                <img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
-                <a class="shareCount"></a>
-            </div>
-            <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=0" ></script>
-            <script type="text/javascript" id="bdshell_js"></script>
-            <script type="text/javascript">
-                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
-            </script>
-            <!-- Baidu Button END -->
-        </div>
-	</div>
+    </div>
 </div>
 
 <script>
