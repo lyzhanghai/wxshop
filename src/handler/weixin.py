@@ -68,7 +68,7 @@ class indexHandler(BaseHandler):
                {    
                    "type":"view",
                    "name":"分享",
-                   "url":self.settings['weixin_url']+"/share?sharer=root"
+                   "url":self.settings['weixin_url']+"/share"
                 }]
             }, 
             {    
