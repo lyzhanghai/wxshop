@@ -128,7 +128,7 @@ class SignInHandler(BaseHandler):
         if 'oauth' in self.session:
             oauth = self.session['oauth']
         
-        self.render("site/signin.html", oauth = oauth, next = self.next_url)
+        self.render("responsive/signin.html", oauth = oauth, next = self.next_url)
     
     def post(self):
         if self.get_current_user():
@@ -173,7 +173,7 @@ class SignInHandler(BaseHandler):
         else:
             self.flash("请输入用户名或者密码")
         
-        self.render("site/signin.html", next = self.next_url)
+        self.render("responsive/signin.html", next = self.next_url)
 
 @route(r'/signup', name='signup') #注册
 class SignUpHandler(BaseHandler):
