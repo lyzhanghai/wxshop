@@ -107,9 +107,9 @@ class ShareHandler(BaseHandler):
             oauth = self.session['oauth']
 	if sharer:
 	    if user:
-                self.render("site/share.html", oauth = oauth, next = self.next_url)
+                self.render("responsive/share.html", oauth = oauth, next = self.next_url)
 	    else:
-                self.render("site/signup.html", oauth = oauth, next = self.next_url,sharer = sharer)   
+                self.render("responsive/signup.html", oauth = oauth, next = self.next_url,sharer = sharer)   
 	else:
 	    if user:
 	        url="/share?sharer="+user.mobile
@@ -187,14 +187,12 @@ class SignUpHandler(BaseHandler):
         if 'oauth' in self.session:
             oauth = self.session['oauth']
         code = self.get_argument("code", None)
-        if code:
+        openid=None
+	if code:
 	    openid = weixin.get_openid(self , code)
 	    print ""+openid
-        else:
-	    weixin.get_code(self)
-	    return
     
-        self.render("site/signup.html", oauth = oauth ,openid = openid)
+        self.render("/responsive/signup.html", oauth = oauth ,openid = openid)
     
     def post(self):
         if self.get_current_user():
@@ -249,7 +247,7 @@ class SignUpHandler(BaseHandler):
                 self.flash("请输入密码和确认密码")
         except Exception, ex:
             self.flash(str(ex))
-        self.render("site/signup.html")
+        self.render("/response/signup.html")
 
 @route(r'/signout', name='signout') #退出
 class SignOutHandler(BaseHandler):
