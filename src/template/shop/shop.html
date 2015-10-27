@@ -9,15 +9,10 @@
     <div id="cakeimages">
     	{% for pic in pics -%}
         	{% if loop.index == 1 %}
-            	<img src="/upload/{{pic.path}}" id="bigimg" width="530px" height="440px">
+            	<img src="/upload/{{pic.path}}" id="bigimg" width="300px" height="300px">
             {% endif %}
 		{%- endfor %}
         
-        <div id="imgplayer">
-        {% for pic in pics -%}
-			<a {% if loop.index == 1 %}class="on"{% endif %}><img src="/upload/{{pic.path}}"></a>
-		{%- endfor %}
-        </div>
     </div>
     <div class="cakeinfo">
         <p class="borbom"><font class="fs22 bigfs"  id="shop" data-id="{{shop.id}}">{{shop.name}}</font><br/><font class="fs18 bigfs">{{shop.ename}}</font></p>
