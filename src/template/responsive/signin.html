@@ -17,6 +17,7 @@
             	<form id="contact-form" action="/signin" method="post">
                   <fieldset>
                   	<span class="error">0请输入账号!</span>
+                  	<span class="empty">*0请输入账号!</span>
 	                <div>
 	                {%set messages=handler.get_flashed_messages() %}
                     {%-if messages-%}
@@ -27,9 +28,11 @@
                         </span>
                     {%-endif-%}
                     <span class="error">1请输入账号!</span>
+                    <span class="empty">*1请输入账号!</span>
 	                    <label class="name">账号：</label>
 	                    <input type="text" value="" name="mobile">
 	                    <span class="error">2请输入账号!</span>
+	                    <span class="empty">*2请输入账号!</span>
 	                </div>
 	                <div>
 	                    <label class="phone">密码：</label>
