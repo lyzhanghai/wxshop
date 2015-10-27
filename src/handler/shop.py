@@ -122,7 +122,7 @@ class OrderHandler(BaseHandler):
             order = Order()
         
         ashops = Shop.select().where((Shop.cid == 2) & (Shop.status != 9))
-        self.render("shop/order.html", orderitems = orderitems, order = order, ashops = ashops)
+        self.render("/responsive/order.html", orderitems = orderitems, order = order, ashops = ashops)
 
 @route(r'/settle', name='settle') #结算
 class SettleHandler(BaseHandler):
@@ -183,7 +183,7 @@ class SettleHandler(BaseHandler):
             pass
         
         if orderitems:
-            self.render("shop/settle.html", tmday = datetime.date.today() + datetime.timedelta(days=1), order  = order, orderitems = orderitems, distributions = distributions.values(), credit = credit)
+            self.render("/responsive/settle.html", tmday = datetime.date.today() + datetime.timedelta(days=1), order  = order, orderitems = orderitems, distributions = distributions.values(), credit = credit)
     
     def post(self):
         order = None
