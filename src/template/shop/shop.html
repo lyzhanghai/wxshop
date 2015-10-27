@@ -5,8 +5,6 @@
 {% block js %}shop{% endblock %}
 {% block content %}
 <div class="blank10"></div>
-<div class="wapper fs16">当前：<a href="/">首页</a> &gt;&gt; <a href="/list/">产品列表</a> &gt;&gt; {{category.name}}</div>
-<div class="blank10"></div>
 <div class="wapper">
     <div id="cakeimages">
     	{% for pic in pics -%}
@@ -60,68 +58,6 @@
         </div>
 	</div>
 </div>
-<div class="blank20"></div>
-<div class="wapper borcc">
-    <div class="leftwapper">
-        <div class="tab borbom99">
-            <a class="on">产品参数</a><a href="#warmtip">温馨提示</a><a href="#consultbox">购买疑问</a>
-        </div>
-        <div class="parameter m25">
-            <div class="content">
-            	{% if categoryattrs.count() > 0 -%}
-					{% for categoryattr in categoryattrs -%}
-						{{ categoryattr.name }}：{{ shop.args['attr_' ~ categoryattr.id] }}<br/>
-					{%- endfor %}
-				{%- endif %}
-            </div>
-            {{shop.intro}} 
-        </div>
-        <div class="warmtip" id="warmtip">
-            <div class="fs18 bigfs pl20 tanc borbom99">温馨提示：</div>
-            <div class="tip">
-                {{shop.prompt}} 
-            </div>
-        </div>
-        <div class="consult" id="consultbox">
-            <div class="fs18 bigfs pl20 tanc borbom99">购买咨询：</div>
-            <div class="pl20 lh30 fs14 fw mt10">如购买过程中有任何疑问，欢迎向我们咨询 <a class="oc" href="#consultbox">我要咨询</a></div>
-            <div id="consults"></div>
-            <!--<dl class="mt20">
-                <dt class="titico ask mb5">咨询内容：请问3磅的蛋糕可以切成16块吗？ <font class="fr mr10">2013-08-11 14:13:25</font></dt>
-                <dd class="titico ans mb5">回复：3磅蛋糕可以切分25块感谢您对诺心LECAKE的支持！祝您购物愉快！ <font class="fr mr10">2013-08-11 14:13:25</font></dd>
-            </dl>
-            <dl class="mt20">
-                <dt class="titico ask mb5">咨询内容：请问3磅的蛋糕可以切成16块吗？ <font class="fr mr10">2013-08-11 14:13:25</font></dt>
-                <dd class="titico ans mb5">回复：3磅蛋糕可以切分25块感谢您对诺心LECAKE的支持！祝您购物愉快！ <font class="fr mr10">2013-08-11 14:13:25</font></dd>
-            </dl>-->
-        </div>
-        <div class="blank10"></div>
-
-		<form action="" method="post" id="commentform">
-        <div class="ml20 formitem">
-            <span>咨询内容：</span> <textarea name="content" id="content"></textarea>
-        </div>
-        <div class="ml20 formitem">
-            <span>验证码：</span> <input type="text" name="vcode" id="vcode" maxlength="4"><img class="mt5 ml5" src="/ajax/captcha">
-        </div>
-        <div class="item mt20">
-            <span>&nbsp;</span><input type="submit" class="titico sbut" value="提交">
-        </div>
-        </form>
-        <div class="blank20"></div>
-    </div>
-    <div class="rightwapper">
-        <div class="fs22 bigfs pl20 tanc borbom99 gc6 pt10">应季推荐</div>
-        <ul class="recommend_list">
-            {% for shop in recomshops-%}
-            <li class="tac">
-                <a class="tac fs14" href="/shop/{{shop.ename}}"><img src="/upload/{{ shop.cover }}" width="250"/><br/>{{shop.name}}</a>
-            </li>
-            {%-endfor%}
-        </ul>
-    </div>
-</div>
-
 
 <script>
 Do.ready(function(){
@@ -223,9 +159,6 @@ Do.ready(function(){
 })
 </script>
 
-{% endblock %}
-
-{% block foot %}
 {% endblock %}
 
 
