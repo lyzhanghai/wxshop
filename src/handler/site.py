@@ -53,7 +53,7 @@ class IndexHandler(BaseHandler):
             shop.price = shop.price.split("~")[0]
             shops.append(shop)
         
-        self.render("responsive/index.html", ads = ads, newest = newest, recomm = recomm,ccategory = ccategory, categorys = categorys, shops = shops, total = total, page = page, pagesize = pagesize)
+        self.render("site/index.html", ads = ads, newest = newest, recomm = recomm,ccategory = ccategory, categorys = categorys, shops = shops, total = total, page = page, pagesize = pagesize)
 
 @route(r'/apply', name='apply') #集团购买/会员特惠
 class ApplyHandler(BaseHandler):
@@ -128,7 +128,7 @@ class SignInHandler(BaseHandler):
         if 'oauth' in self.session:
             oauth = self.session['oauth']
         
-        self.render("responsive/signin.html", oauth = oauth, next = self.next_url)
+        self.render("site/signin.html", oauth = oauth, next = self.next_url)
     
     def post(self):
         if self.get_current_user():

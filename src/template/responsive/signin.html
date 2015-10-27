@@ -4,7 +4,9 @@
     	jQuery('.spinner').animate({'opacity':0},1000,'easeOutCubic',function (){jQuery(this).css('display','none')});	
     });
 {% endblock %}	
-    
+{% block myjs %}
+<script type="text/javascript" src="/style/js/sign.js"></script>
+{% endblock %}    
 {% block content %}
 <div id="content">
     <div class="container">

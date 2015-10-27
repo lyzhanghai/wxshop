@@ -4,7 +4,7 @@ function toLogin(){
 function toRegister(){
     window.location.href="/signup";
 }
-Do.ready(function(){
+$(function(){
     $('#getvcode').click(function(event) {
 		if($('#mobile').val().length > 0){
 			$.ajax({
