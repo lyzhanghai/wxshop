@@ -20,82 +20,9 @@
 </head>
 
 <body>
-<div class="wapper head">
-    <div class="fr headinfo">
-        <div id="userinfo" class="fr">
-        {% if user -%}<a>你好{{user.mobile}}</a><span class="fl">&nbsp;</span><a href="/signout">退出</a><a href="/order"  class="ico shopping">我的购物车</a><span class="fl">&nbsp;|&nbsp;</span><a href="/user">我的订单</a> {%if user.group == 9 -%}<span class="fl">&nbsp;|&nbsp;</span><a href="/admin">网站管理</a> {%endif %}
-        {%-else-%}<a href="/signin" class="formforlogin">登录</a><span class="fl">&nbsp;|&nbsp;</span><a href="/signup"  class="formforregister">注册</a> <a href="/order"  class="ico shopping">我的购物车</a>{%-endif%}</div>
-        <div id="global_search" class="fr"><form action="/list/" method="get"><input type="text" class="txt fl" name="keyword" ><input type="submit" value="搜索" class="but fr"></form></div>
-    </div>
-</div>
-<div id="fixLayout">
-    	<a rel="微信" class="weixin"></a>
-        <a rel="微博" class="weibo"></a>
-        <a rel="QQ" class="qq"></a>
-        <a rel="旺旺" class="wangwang"></a>
-    </div>
-<div class="blank20"></div>
-<div class="wapper nav pr overvisible pr zindex1">
-    <ul class="clearfix navul">
-        <li>
-            <a href="/" class="dropdown-toggle">首页</a>
-        </li>
-        <li class="dropdown">
-            <a href="/list/" class="dropdown-toggle">产品列表</a>
-            <ul class="dropdown-menu">
-                <li><a href="/list/?order=orders">销量排行</a></li>
-                <li><a href="/list/">新品上市</a></li>
-                <li><a href="/list/credit">积分商品</a></li>
-		<li><a href="/list/mousse">鸡</a></li>
-                <li><a href="/list/chocolate">鸭</a></li>
-                <li><a href="/list/cheese">鹅</a></li>
-                <!--<li><a href="/list/creambutter">乳脂奶油蛋糕</a></li>
-                <li><a href="/list/icecream">冰淇淋蛋糕</a></li>-->
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="/recomm/">产品推荐</a>
-        </li>
-        <li><a href="/p/aboutus">菜市优品</a></li>
-        <li class="dropdown">
-            <a href="/user" class="dropdown-toggle">我是会员</a>
-                <ul class="dropdown-menu">
-                    <li><a href="/user">会员首页</a></li>
-                    <li><a href="/user/profile">会员信息</a></li>
-                    <li><a href="/user/orders">我的订单</a></li>
-                    <li><a href="/user/address">收货地址</a></li>
-                    <li><a href="/user/password">找回/修改密码</a></li>
-                    <li><a href="/user/consults">我的咨询</a></li>
-                    <li><a href="/user/credits">我的积分</a></li>
-                    <li><a href="/user/marks">我的纪念日</a></li>
-                </ul>
-
-        </li>
-    </ul>
-</div>
 
     {% block content %}&nbps;{% endblock %}
 
-<div class="blank10"></div>
-<div class="wapper foot">
-    <ul class="clearfix mb20">
-        <li class="ico logo"></li>
-        <li class="ico peisong"></li>
-        <li class="ico baozhang"></li>
-        <li class="ico shicai"></li>
-        <li class="ico kefu"></li>
-    </ul>
-    <div class="tac footinfo pt10">
-        <p>
-            <a href="/p/bzzs">包装展示</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/p/dgsm">订购说明</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/p/rhsh">如何收货</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/p/fkfs">付款方式</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/p/psfw">配送范围</a>
-        </p>
-        <p>Copyright  2015菜市优品 All RightRevesed. </p>
-    </div>
-</div>
 {% if user  is none  -%}
 <div class="global_popwinwapper r5" id="formforlogin" style="display: none;">
     <div class="global_popwin clearfix">
@@ -111,6 +38,9 @@
                 </div>
                 <div class="item">
                    <span>密码：</span><input type="password" name="password" class="fl">
+                </div>
+                <div class="item">
+                    <span>&nbsp;</span><a class="oc fs14">忘记密码</a>
                 </div>
                 <div class="itembut">
                     <span>&nbsp;</span><input type="submit" class="titico bsbut" value="登陆">
@@ -178,3 +108,4 @@
 </body>
 
 </html>
+
