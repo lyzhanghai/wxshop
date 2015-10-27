@@ -7,6 +7,10 @@ function toRegister(){
 function login(){
 	$("#contact-form").submit();
 }
+function resetForm(){
+	$("#mobile").val('');
+	$("#password").val('');
+}
 $(function(){
     $('#getvcode').click(function(event) {
 		if($('#mobile').val().length > 0){
