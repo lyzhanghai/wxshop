@@ -39,35 +39,16 @@
         <div class="container">
     		<div class="row">
         <article class="span12">
-        <h3>新品上市</h3>
+        <h3>商品列表</h3>
          </article>
         <div class="clear"></div>
 	         <ul class="portfolio clearfix">         
                {% for shop in shops -%}
 	           <li class="box"><a href="/shop/{{shop.ename}}"><img alt="" src="/upload/{{ shop.cover }}" width="270px" height="190px"></a></li> 
 	           {%- endfor %}
-	           <li class="box"><a href="/style/responsive/img/image-blank.png" class="magnifier" ><img alt="" src="/style/responsive/img/work/2.jpg"></a></li> 
-	           <li class="box"><a href="/style/responsive/img/image-blank.png" class="magnifier" ><img alt="" src="/style/responsive/img/work/3.jpg"></a></li> 
-	           <li class="box"><a href="/style/responsive/img/image-blank.png" class="magnifier" ><img alt="" src="/style/responsive/img/work/4.jpg"></a></li> 
 	         </ul> 
 	      </div>
      	</div>
     </div>
-    <div class="row-1">
-        <div class="container">
-        <div class="row">
-        <article class="span12">
-        <h3>应季推荐</h3>
-         </article>
-         <div class="clear"></div>
-	         <ul class="portfolio clearfix">           
-	           <li class="box"><a href="/style/responsive/img/image-blank.png" class="magnifier" ><img alt="" src="/style/responsive/img/work/5.jpg"></a></li> 
-	           <li class="box"><a href="/style/responsive/img/image-blank.png" class="magnifier" ><img alt="" src="/style/responsive/img/work/6.jpg"></a></li> 
-	           <li class="box"><a href="/style/responsive/img/image-blank.png" class="magnifier" ><img alt="" src="/style/responsive/img/work/7.jpg"></a></li> 
-	           <li class="box"><a href="/style/responsive/img/image-blank.png" class="magnifier" ><img alt="" src="/style/responsive/img/work/8.jpg"></a></li>                       
-	         </ul> 
-	      </div>
-        </div>
-     </div>
 </div>
 {% endblock %}      

@@ -21,7 +21,39 @@ class IndexHandler(BaseHandler):
         for shop in Shop.select(Shop.name, Shop.ename, Shop.cover, Shop.price).where(Shop.status == 1).limit(6):
             shop.price = shop.price.split("~")[0]
             recomm.append(shop)
-        self.render("responsive/index.html", ads = ads, newest = newest, recomm = recomm)
+ 
+	ccategory= None
+        keyword = self.get_argument("keyword", None)
+        
+        page = int(self.get_argument("page", 1))
+        order = self.get_argument("order", None)
+        
+        pagesize = self.settings['admin_pagesize']
+        
+        categorys = self.get_categorys()
+        
+        sq = Shop.select(Shop.name, Shop.ename, Shop.cover, Shop.price)
+        total = sq.count()
+        
+        if ccategory:
+            sq = sq.where((Shop.cid == ccategory.id) & (Shop.status != 9))
+        elif keyword:
+            keyword = "%" + keyword + "%"
+            sq = sq.where((Shop.name % keyword) & (Shop.status != 9))
+        else:
+            sq = sq.where((Shop.cid != 2) & (Shop.status != 9))
+        
+        if order:
+            sq = sq.order_by(Shop.orders.desc())
+        else:
+            sq = sq.order_by(Shop.views.desc())
+        
+        shops = []
+        for shop in sq.paginate(page, pagesize):
+            shop.price = shop.price.split("~")[0]
+            shops.append(shop)
+        
+        self.render("responsive/index.html", ads = ads, newest = newest, recomm = recomm,ccategory = ccategory, categorys = categorys, shops = shops, total = total, page = page, pagesize = pagesize)
 
 @route(r'/apply', name='apply') #集团购买/会员特惠
 class ApplyHandler(BaseHandler):
