@@ -4,6 +4,10 @@ function toLogin(){
 function toRegister(){
     window.location.href="/signup";
 }
+function login(){
+	alert('login');
+	$("#contact-form").submit();
+}
 $(function(){
     $('#getvcode').click(function(event) {
 		if($('#mobile').val().length > 0){
