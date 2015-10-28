@@ -280,7 +280,7 @@ class CreditHandler(UserBaseHandler):
         total = cq.count()
         clogs = cq.paginate(page, pagesize)
         
-        self.render('user/credit.html', clogs = clogs, total = total, page = page, pagesize = pagesize)
+        self.render('/responsive/credit.html', clogs = clogs, total = total, page = page, pagesize = pagesize)
 
 
 @route(r'/user/marks', name='user_marks') #用户纪念日
