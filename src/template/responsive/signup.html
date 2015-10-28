@@ -1,84 +1,55 @@
-{% extends "layout/site.html" %}
-
-{% block title %}注册{% endblock %}
-{% block css %}signin{% endblock %}
-{% block js %}sign{% endblock %}
+{% extends "/layout/base.html" %}
+{% block js %}
+	jQuery(window).load(function() {	
+    	jQuery('.spinner').animate({'opacity':0},1000,'easeOutCubic',function (){jQuery(this).css('display','none')});	
+    });
+{% endblock %}	
+{% block myjs %}
+<script type="text/javascript" src="/style/js/sign.js"></script>
+{% endblock %}    
 {% block content %}
-<div class="blank10"></div>
-<div class="wapper">
-    {% if oauth -%}
-
-    <p>
-
-        注册新账户。<br>
-
-        <img src="{{oauth['profile_image_url']}}">
-
-        你好 {{oauth['screen_name']}}！
-
-    </p>
-
-    {%-endif %}
-<div class="free_box">
-    <div class="global_popwin clearfix">
-    	<div class="blank20"></div>
-    	<div class="global_pop_title register"></div>
-    	<div class="blank20"></div>
-    	<div class="pop_form">
-        <form action="/signup" method="post">
-        	{{xsrf()}}
-    		<div class="login_form">
-            	<div class="itemword">
+<div id="content">
+    <div class="container">
+        <div class="row">
+          <article class="span8">
+              <h3>注册会员</h3>
+              <div class="inner-1">
+            	<form id="contact-form" action="/signup" method="post">
+                  <fieldset>
                     {%set messages=handler.get_flashed_messages() %}
                     {%-if messages-%}
-                        <div>
+                        <label style="color:red;">
                             {% for type, msg in messages%}
                                 {{msg}}
                             {% endfor %}
-                        </div>
+                        </label>
                     {%-endif-%}
-                </div>
-    			<div class="item">
-    				<span>手机号码：</span>
-                    <input type="text" name="mobile" id="mobile" maxlength="11" class="fl">
-    	            <input type="text" name="sharer" value="{{sharer}}" class="fl" style="display:none;">
-    	            <input type="text" name="openid" value="{{openid}}" class="fl" style="display:none;">
-			</div>
-    			<div class="item">
-    				<span>设置密码：</span>
-                    <input type="password" name="password" class="fl">
-    			</div>
-                <div class="item">
-                	<span>确认密码：</span>
-                    <input type="password" name="apassword" class="fl">
-                </div>
-                <div class="item">
-                	<span>验证码：</span>
-                    <input type="text" name="vcode" maxlength="4" class="fl"><a id="getvcode" class="fl mt5 ml10">获取验证码</a>
-                </div>
-                <div class="item">
-                	<span><input type="checkbox" checked=""></span><a class="oc fs12 agree" href="/p/protocol">同意《菜市优品的购物协议》</a>
-                </div>
-                <div class="itembut">
-                	<span>&nbsp;</span><input type="submit" class="titico bsbut" value="注册">
-                </div>
-    		</div>
-            </form>
-    		<div class="link_form">
-    			<p class="oc mb20">已有菜市优品的账户？ </p>
-    			<p><input type="button" class="titico sbut" onclick="toLogin()" value="登陆"></p>
-    			<p class="mt20">或使用合作网站帐号登录</p>
-    			<p class="mt5"><a class="global_pop_title xinlang" href="/oauth/weibo?next=/">新浪</a><a class="global_pop_title zhifubao ml20" href="/oauth/alipay?next=/">支付宝</a></p>
-    		</div>
-    		<div class="blank20"></div>
-    	</div>
-    </div>
+	                <div>
+	                    <label id="mobile">手机号码：</label>
+	                    <input type="number" value="" id="mobile" name="mobile">
+	                    <input type="text" name="sharer" value="{{sharer}}" class="fl" style="display:none;">
+    	            	<input type="text" name="openid" value="{{openid}}" class="fl" style="display:none;">
+	                </div>
+	                <div>
+	                    <label id="password">设置密码：</label>
+	                    <input type="password" value="" id="password" name="password">
+	                </div>
+	                <div>
+	                    <label id="apassword">确认密码：</label>
+	                    <input type="password" value="" id="apassword" name="apassword">
+	                </div>
+	                <div>
+	                    <label id="vcode">验证码：</label>
+	                    <input type="text" maxlength="4" id="vcode" name="vcode"><a id="getvcode" class="fl mt5 ml10">获取验证码</a>
+	                </div>
+	                <div class="buttons-wrapper"> <a class="btn btn-1" data-type="reset" onclick="resetForm()">重置</a> <a class="btn btn-1" onclick="register()" data-type="submit">登陆</a></div>
+              	   </fieldset>
+                </form>
+          	</div>
+          	<h3>已有菜市优品的账户？</h3>
+            <div class="buttons-wrapper"> <a class="btn btn-1" data-type="button">登陆</a></div>
+          </article>
+      </div>
+   </div>
 </div>
-
-{% endblock %}
-
-
-
-{% block foot %}
-
-{% endblock %}
+{% endblock %}    
