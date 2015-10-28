@@ -7,9 +7,18 @@ function toRegister(){
 function login(){
 	$("#contact-form").submit();
 }
+function register(){
+	$("#contact-form").submit();
+}
 function resetForm(){
 	$("#mobile").val('');
 	$("#password").val('');
+}
+function resetRegisterForm(){
+	$("#mobile").val('');
+	$("#password").val('');
+	$("#apassword").val('');
+	$("#vcode").val('');
 }
 $(function(){
     $('#getvcode').click(function(event) {
