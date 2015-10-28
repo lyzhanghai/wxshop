@@ -104,7 +104,7 @@ class OrderHandler(UserBaseHandler):
                     pass
                 
         
-        self.render('user/order.html', orders = orders, total = total, page = page, pagesize = pagesize)
+        self.render('/responsive/user_order.html', orders = orders, total = total, page = page, pagesize = pagesize)
 
 @route(r'/user/address', name='user_address') #用户地址
 class AddressHandler(UserBaseHandler):
