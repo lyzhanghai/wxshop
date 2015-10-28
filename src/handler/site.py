@@ -249,7 +249,7 @@ class SignUpHandler(BaseHandler):
                 self.flash("请输入密码和确认密码")
         except Exception, ex:
             self.flash(str(ex))
-        self.render("/response/signup.html")
+        self.render("/responsive/signup.html")
 
 @route(r'/signout', name='signout') #退出
 class SignOutHandler(BaseHandler):
