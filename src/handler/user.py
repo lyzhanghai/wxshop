@@ -20,7 +20,7 @@ class UserHandler(UserBaseHandler):
         except:
             pass
         
-        self.render('user/index.html')
+        self.render('/responsive/user_index.html')
 
 @route(r'/user/profile', name='user_profile') #用户资料
 class ProfileHandler(UserBaseHandler):

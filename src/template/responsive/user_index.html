@@ -1,0 +1,6 @@
+{% extends "/layout/base.html" %}
+{% block myjs %}
+<link rel="stylesheet" type="text/css" href="/style/css/member.css"/>
+{% endblock %}
+{% block content %}<div class="welcome">欢迎您: {{user.mobile}} ，欢迎光临菜市优品！</div>    <li>您上次登陆时间为：{{user.lsignined|datetimeformat}}</li>	<li>您的订单：<a>{{user.order}}</a>&nbsp;个 &nbsp;&nbsp;&nbsp;&nbsp;<a href="/user/orders">立即查看</a></li>	<li>您的积分：<a>{{user.credit}}</a>&nbsp;个 &nbsp;&nbsp;&nbsp;&nbsp;<a href="/user/credits">立即查看</a></li></ul> <a href="/signout">退出</a>
+{% endblock %}
