@@ -53,7 +53,7 @@ class indexHandler(BaseHandler):
                 {    
                    "type":"view",
                    "name":"个人信息",
-                   "url":self.settings['weixin_url']+'/user/profile'
+                   "url":self.settings['weixin_url']+'/user'
                 },
                {    
                    "type":"view",
