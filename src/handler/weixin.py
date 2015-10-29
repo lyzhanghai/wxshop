@@ -58,7 +58,7 @@ class indexHandler(BaseHandler):
                {    
                    "type":"view",
                    "name":"我的订单",
-                   "url":self.settings['weixin_url']+'/user'
+                   "url":self.settings['weixin_url']+'/user/orders'
                 },
                {    
                    "type":"view",
