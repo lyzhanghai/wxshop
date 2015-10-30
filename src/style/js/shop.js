@@ -13,9 +13,14 @@ function decrease(){
 }
 
 function settotalprice(){
+	var num = parseInt($('#productNum').val());
+	$('#productNum').closest('td').siblings('.orderitemtotalprice').text('￥' + parseInt($('#productNum').attr('data')) * num);
+    $.post('/ajax/changeorder', {oiid : $('#productNum').attr('data-id'), num : num, _xsrf : xsrf}, function(data) {
+    }, 'json');
+	
 	var price = 0;
 	$('input.num').each(function(i){
-		price += parseInt($(this).attr('data')) * parseInt($(this).val())
+		price += parseInt($('#productNum').attr('data')) * parseInt($('#productNum').val())
 	})
 	$('#totalprice').html('￥' + price + '元');
 }
