@@ -13,6 +13,8 @@
           <thead>
             <tr>
               <th>手机</th>
+	      <th>微信号</th>
+	      <th>积分</th>
               <th>姓名</th>
               <th>qq</th>
               <th>注册时间</th>
@@ -23,6 +25,8 @@
           {% for u in users -%}
             <tr>
               <td>{{u.mobile}}</td>
+	      <td>{{u.openid}}</td>
+ 	      <td>{{u.credit}}</td>
               <td>{{u.realname}}</td>
               <td>{{u.qq}}</td>
               <td>{{u.lsignined|datetimeformat}}</td>
