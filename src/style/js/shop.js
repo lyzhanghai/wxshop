@@ -13,6 +13,7 @@ function decrease(){
 }
 
 function settotalprice(){
+	var xsrf='{{handler.xsrf_token}}';
 	var num = parseInt($('#productNum').val());
 	$('#productNum').closest('td').siblings('.orderitemtotalprice').text('￥' + parseInt($('#productNum').attr('data')) * num);
     $.post('/ajax/changeorder', {oiid : $('#productNum').attr('data-id'), num : num, _xsrf : xsrf}, function(data) {
