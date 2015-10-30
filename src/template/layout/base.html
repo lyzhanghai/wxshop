@@ -42,9 +42,10 @@
                 <ul class="nav sf-menu">         
 				{% if user -%}<li><a>你好{{user.mobile}}</a></li>
 				<li><a href="/">首页</a></li>
-				<li><a href="/signout">退出</a><a href="/order">我的购物车</a></li>
-				<li><a href="/user/orders">我的订单</a> </li>
+				<li><a href="/order">我的购物车</a></li>
+				<li><a href="/user/orders">我的订单</a></li>
 				{%if user.group == 9 -%}<li><a href="/admin">网站管理</a> </li>{%endif %}
+				<li><a href="/signout">退出</a></li>
 				{%-else-%}<li><a href="/signin">登录|注册</a></li>{%-endif%}
                 </ul>
             </div>
