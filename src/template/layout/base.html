@@ -31,6 +31,28 @@
 <body>
 <!-- header start -->
 <header>
+<div class="container clearfix">
+    <div class="row">
+          <div class="span12">
+        <div class="navbar navbar_">
+            <div class="container">
+            <h1 class="brand brand_"><a href="index.html"><img alt="" src=""> </a></h1>
+            <a class="btn btn-navbar btn-navbar_" data-toggle="collapse" data-target=".nav-collapse_">菜单 <span class="icon-bar"></span> </a>
+            <div class="nav-collapse nav-collapse_  collapse">
+                <ul class="nav sf-menu">         
+				<li>{% if user -%}<a>你好{{user.mobile}}</a></li>
+				<li><a href="/">首页</a></li>
+				<li><a href="/signout">退出</a><a href="/order">我的购物车</a></li>
+				<li><a href="/user/orders">我的订单</a> </li>
+				<li>{%if user.group == 9 -%}<a href="/admin">网站管理</a> {%endif %}
+				{%-else-%}<a href="/signin">登录</a><span>&nbsp;|&nbsp;</span><a href="/signup">注册</a>{%-endif%}</li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 </header>
 <!-- content -->
 <div class="bg-content">{% block content %}{% endblock %}</div>
