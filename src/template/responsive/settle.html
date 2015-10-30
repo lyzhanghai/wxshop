@@ -38,9 +38,10 @@
                 ￥{{price}}
             </td>
             <td>
-               <span class="cakenumbox">
+		{{orderitem.num}}
+               <!--span class="cakenumbox">
                    <input type="text" size="3" value="{{orderitem.num}}"  readonly>
-               </span>
+               </span-->
             </td>
             <td>
                 ￥{{price * orderitem.num}} {%if orderitem.shop.cid == 1 and price * orderitem.num > user.credit%}<span id="ctips">(积分不够)</span>{%endif%}
