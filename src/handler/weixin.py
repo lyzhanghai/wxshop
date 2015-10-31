@@ -49,8 +49,7 @@ class indexHandler(BaseHandler):
                {    
                    "type":"view",
                    "name":"登录/注册",
-                   "url":'https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_base#wechat_redirect' % (
-        self.settings['weixin_appid'], self.settings['weixin_url']+'/signup')
+                   "url":self.settings['weixin_url']+'/signup'
                 },
                 {    
                    "type":"view",
