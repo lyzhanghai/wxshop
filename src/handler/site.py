@@ -192,13 +192,14 @@ class SignUpHandler(BaseHandler):
             oauth = self.session['oauth']
         code = self.get_argument("code", None)
         sharer = self.get_argument("sharer", None)
+	state = self.get_argument("state" ,None)
 	appid = self.settings['weixin_appid']
         url_w = self.settings['weixin_url']
         print ''+appid
         print ''+url_w
         openid='openid'
         if code:
-	       print "code"+sharer
+	       sharer = state
 	       openid = weixin.get_openid(self , code)
         else:
            print 'code null'+sharer
