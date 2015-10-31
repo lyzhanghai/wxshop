@@ -1,8 +1,8 @@
 {% extends "/layout/base.html" %}
 {% block myjs %}
 <script type="text/javascript" src="/style/js/do.js"></script>
-<script type="text/javascript" src="/style/js/numberInput.js"></script>
-<link rel="stylesheet" type="text/css" href="/style/css/shopping.css"/>
+<script type="text/javascript" src="/style/js/shop.js"></script>
+<link rel="stylesheet" type="text/css" href="/style/css/numberInput.css"/>
 {% endblock %}
 
 {% block content %}  
@@ -21,11 +21,11 @@
 			</font><br/>
 			<font class="fs18 bigfs">数量：
 				<div id="num_sel">
-					<span class="cakenumbox">
+					<div class="cakenumbox">
 						<input type="text" name="num" id="num" value="1">
 						<span class="increase titico" onclick="increase()"></span>
                    		<span class="decrease titico" onclick="decrease()"></span>
-					</span>
+					</div>
 				</div>
 			</font><br/>
 			<font class="fs18 bigfs">简介：{{shop.resume}}</font><br/>
