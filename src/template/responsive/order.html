@@ -3,6 +3,7 @@
 <script type="text/javascript" src="/style/js/do.js"></script>
 <script type="text/javascript" src="/style/js/shop.js"></script>
 <link rel="stylesheet" type="text/css" href="/style/css/shopping.css"/>		
+<link rel="stylesheet" type="text/css" href="/style/css/common.css"/>
 {% endblock %}
 {% block content %}
 <div class="blank20"></div>
@@ -38,8 +39,8 @@
             <td>
                <span class="cakenumbox">
                    <input type="text" name="num" id="productNum" value="{{orderitem.num}}" size="4" maxlength="4" data="{{price}}" data-id="{{orderitem.id}}" class="num"/>
-                   <span class="increase titico" onclick="increase()"></span>
-                   <span class="decrease titico" onclick="decrease()"></span>
+                   <span class="increase titico" onclick="decrease()"></span>
+                   <span class="decrease titico" onclick="increase()"></span>
                </span>
             </td>
             <td class="orderitemtotalprice">
