@@ -53,7 +53,7 @@
 					  var appid = document.getElementById('appid').value;
 					  var url_w = document.getElementById('url_w').value;
 					  var sharer = document.getElementById('sharer').value;
-					  window.location='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+ appid +'&redirect_uri='+ url_w +'/signup&response_type=code&scope=snsapi_base&connect_redirect=1&sharer='+sharer+'#wechat_redirect';
+					  window.location='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+ appid +'&redirect_uri='+ url_w +'/signup&response_type=code&scope=snsapi_base&connect_redirect=1&state='+sharer+'#wechat_redirect';
 				   </script>
 				{%endif%}
           	</div>
