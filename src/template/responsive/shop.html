@@ -13,12 +13,12 @@
 			<font class="fs18 bigfs">英文名：{{shop.ename}}</font><br/>
 			<font class="fs18 bigfs">价格：<dev id="price">{{shop.price}}</dev>元</font><br/>
 			<font class="fs18 bigfs">重量：
-				<span id="size_sel">
+				<div id="size_sel">
 					{% for shopattr in shopattrs -%}
 							<a  data="{{shopattr.price}}" data-id="{{shopattr.id}}">{{shopattr.name}}</a>&nbsp;
 					{%- endfor %}
-				</span>
-			</font><br/>
+				</div>
+			</font><br/><br/>
 			<font class="fs18 bigfs">数量：
 				<div id="num_sel">
 					<div class="cakenumbox">
