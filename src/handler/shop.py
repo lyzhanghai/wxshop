@@ -5,6 +5,7 @@ import datetime
 import urllib
 import simplejson
 import logging
+import string
 from tornado.web import HTTPError
 from handler import BaseHandler
 from lib.route import route
@@ -126,7 +127,6 @@ class OrderHandler(BaseHandler):
 
 @route(r'/settle', name='settle') #结算
 class SettleHandler(BaseHandler):
-    
     def prepare(self):
         if not self.current_user:
             url = self.get_login_url()
@@ -169,11 +169,9 @@ class SettleHandler(BaseHandler):
                             _oiprice = orderitem['shopattr'].price
                     else:
                         _oiprice = float(_oiprice)
-                    
+                        
                     orderitems.append(orderitem)
-                    
-                    price = price + _oiprice * orderitem['num']
-                    
+                    price = price + string.atof(_oiprice) * orderitem['num']
                 except:
                     pass
             order.price = price
