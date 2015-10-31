@@ -109,7 +109,8 @@ class ShareHandler(BaseHandler):
 	    if user:
                 self.render("responsive/share.html", oauth = oauth, next = self.next_url)
 	    else:
-                self.render("responsive/signup.html", oauth = oauth, next = self.next_url,sharer = sharer)   
+		url="/signup?sharer="+sharer
+                self.redirect(url)
 	else:
 	    if user:
 	        url="/share?sharer="+user.mobile
@@ -189,7 +190,8 @@ class SignUpHandler(BaseHandler):
         if 'oauth' in self.session:
             oauth = self.session['oauth']
         code = self.get_argument("code", None)
-        appid = self.settings['weixin_appid']
+        sharer = self.get_argument("sharer", None)
+	appid = self.settings['weixin_appid']
         url_w = self.settings['weixin_url']
         print ''+appid
         print ''+url_w
@@ -200,7 +202,7 @@ class SignUpHandler(BaseHandler):
            print 'code null'
         print ''+openid
         
-        self.render("/responsive/signup.html", oauth = oauth ,openid = openid,appid =appid,url_w = url_w)
+        self.render("/responsive/signup.html", oauth = oauth ,openid = openid,appid =appid,url_w = url_w,sharer = sharer)
     
     def post(self):
         if self.get_current_user():
