@@ -31,3 +31,21 @@
       cursor: pointer;
       margin: 6px 0px 0px 4px; 
 }
+#size_sel a {
+    border: 1px solid #dddddd;
+    line-height: 30px;
+    float: left;
+    display: block;
+    margin: 5px;
+    cursor: pointer;
+    background: #ffffff;
+    width: 130px;
+    text-align: center; 
+}
+#size_sel a:hover{
+	  text-decoration:none;
+}
+#size_sel a.on {
+    border: 1px solid #FF7F00;
+    color: #FF7F00; 
+}
