@@ -165,13 +165,14 @@ class SettleHandler(BaseHandler):
                         if orderitem['shop'].cid == 1:
                             _oicredit = orderitem['shopattr'].price
                             credit = credit + _oicredit * orderitem['num']
+                            _oiprice = orderitem['shopattr'].price
                         else:
                             _oiprice = orderitem['shopattr'].price
                     else:
                         _oiprice = float(_oiprice)
                         
                     orderitems.append(orderitem)
-                    price = price + string.atof(_oiprice) * orderitem['num']
+                    price = price + float(_oiprice) * orderitem['num']
                 except:
                     pass
             order.price = price
@@ -241,11 +242,16 @@ class SettleHandler(BaseHandler):
                             shopattr = ShopAttr.get(id = orderitem['said'])
                             
                             if shop.cid == 1:
+                                print 'a'
+                                l = [shopattr.price,orderitem['num']]
+                                print l
                                 credits = shopattr.price * orderitem['num']
-                                
+                                print credits
                                 if credits > user.credit:
+                                    print 'b'
                                     OrderItem.delete().where(OrderItem.id == orderitem['id']).execute()
                                 else:
+                                    print 'c'
                                     user = User.get(id = user.id)
                                     user.credit = user.credit - credits
                                     user.save()
