@@ -109,8 +109,9 @@ class ShareHandler(BaseHandler):
 	    if user:
                 self.render("responsive/share.html", oauth = oauth, next = self.next_url)
 	    else:
-		url="/signup?sharer="+sharer
-                self.redirect(url)
+		print sharer
+		share_url="/signup?sharer="+sharer
+                self.redirect(share_url)
 	else:
 	    if user:
 	        url="/share?sharer="+user.mobile
@@ -197,9 +198,10 @@ class SignUpHandler(BaseHandler):
         print ''+url_w
         openid='openid'
         if code:
+	       print "code"+sharer
 	       openid = weixin.get_openid(self , code)
         else:
-           print 'code null'
+           print 'code null'+sharer
         print ''+openid
         
         self.render("/responsive/signup.html", oauth = oauth ,openid = openid,appid =appid,url_w = url_w,sharer = sharer)
@@ -245,7 +247,8 @@ class SignUpHandler(BaseHandler):
                             
                             del self.session['oauth']
                             self.session.save()
-                        User.update(credit = User.credit + 1).where(User.mobile == mobile).execute()
+                        print sharer
+			User.update(credit = User.credit + 1).where(User.mobile == mobile).execute()
                         #if sharer != None
                         User.update(credit = User.credit + 1).where(User.mobile == sharer).execute()
 			self.flash("注册成功，请先登录。", "ok")
