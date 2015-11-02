@@ -202,7 +202,7 @@ class SignUpHandler(BaseHandler):
 	       sharer = state
 	       openid = weixin.get_openid(self , code)
         else:
-           print 'code null'+sharer
+           print 'code null'
         print ''+openid
         
         self.render("/responsive/signup.html", oauth = oauth ,openid = openid,appid =appid,url_w = url_w,sharer = sharer)

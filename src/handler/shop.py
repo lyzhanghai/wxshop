@@ -5,6 +5,7 @@ import datetime
 import urllib
 import simplejson
 import logging
+import string
 from tornado.web import HTTPError
 from handler import BaseHandler
 from lib.route import route
@@ -126,7 +127,6 @@ class OrderHandler(BaseHandler):
 
 @route(r'/settle', name='settle') #结算
 class SettleHandler(BaseHandler):
-    
     def prepare(self):
         if not self.current_user:
             url = self.get_login_url()
@@ -165,15 +165,14 @@ class SettleHandler(BaseHandler):
                         if orderitem['shop'].cid == 1:
                             _oicredit = orderitem['shopattr'].price
                             credit = credit + _oicredit * orderitem['num']
+                            _oiprice = orderitem['shopattr'].price
                         else:
                             _oiprice = orderitem['shopattr'].price
                     else:
                         _oiprice = float(_oiprice)
-                    
+                        
                     orderitems.append(orderitem)
-                    
-                    price = price + _oiprice * orderitem['num']
-                    
+                    price = price + float(_oiprice) * orderitem['num']
                 except:
                     pass
             order.price = price
@@ -243,11 +242,16 @@ class SettleHandler(BaseHandler):
                             shopattr = ShopAttr.get(id = orderitem['said'])
                             
                             if shop.cid == 1:
+                                print 'a'
+                                l = [shopattr.price,orderitem['num']]
+                                print l
                                 credits = shopattr.price * orderitem['num']
-                                
+                                print credits
                                 if credits > user.credit:
+                                    print 'b'
                                     OrderItem.delete().where(OrderItem.id == orderitem['id']).execute()
                                 else:
+                                    print 'c'
                                     user = User.get(id = user.id)
                                     user.credit = user.credit - credits
                                     user.save()
