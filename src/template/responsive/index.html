@@ -26,8 +26,8 @@
         <div class="clear"></div>
 	         <ul class="portfolio clearfix">         
                {% for shop in shops -%}
-	           <li class="box"><a href="/shop/{{shop.ename}}"><img alt="" src="/upload/{{ shop.cover }}" width="270px" height="190px"></a>
-	           <p></p><p align="center">{{shop.name}}<a href="/shop/{{shop.ename}}">&nbsp;<b>￥{{shop.price}}</b></a></p><p align="center"><a href="/shop/{{shop.ename}}" class="btn btn-1">订购</a></p></li> 
+	           <li class="box"><a href="/shop/{{shop.ename}}"><img alt="" src="/upload/{{ shop.cover }}" width="240px" height="180px"></a>
+	           <p></p><p align="center">{{shop.name}}<b>￥{{shop.price}}</b></p><p align="center"><a href="/shop/{{shop.ename}}" ><button class="btn btn-block btn-large btn-warning" type="button">订购</button></a></p></li> 
 	           {%- endfor %}
 	         </ul> 
 	      </div>
