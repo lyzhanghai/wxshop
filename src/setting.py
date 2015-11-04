@@ -7,8 +7,8 @@ GZIP = True
 DB_HOST= 'localhost'
 DB_PORT= 3306
 DB_USER = 'root'
-DB_PASSWD = '111111'
-DB_NAME = 'cakeshop'
+DB_PASSWD = 'Hlw753guoshu'
+DB_NAME = 'shop'
 
 MEMCACHE_HOST = 'localhost:11211'
 
@@ -32,8 +32,9 @@ ALIPAY_TRANSPORT='https'
 SMS_KEY = 3691
 SMS_SECRET = '23b30104cbcb503f35c0dba876f826b10d3c7a53'
 SMS_GATEWAY = 'http://sms.bechtech.cn/Api/send/data/json'
+
 WEIXIN_TOKEN = '111111'
-WEIXIN_APPID = 'wx5260558149fcc502'
-WEIXIN_SECRET = '439e09a474964b8685dafe126c1c506d'
+WEIXIN_APPID = 'wx7728db155e6b6e20'
+WEIXIN_SECRET = '5bb0be1f8414b83bd14b6f22e6a2da94'
 WEIXIN_ACCESS_TOKEN=''
-WEIXIN_URL = 'http://suncle1992.6655.la'
+WEIXIN_URL = 'http://csyp.hlw2012.com'
