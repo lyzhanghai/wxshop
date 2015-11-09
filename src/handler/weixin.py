@@ -39,10 +39,30 @@ class indexHandler(BaseHandler):
         data = {
            "button":[ 
             {    
-               "type":"view",  
-               "name":"购物车",
-               "url":self.settings['weixin_url']+'/order'
-                }, 
+               "name":"服务中心",
+                "sub_button":[
+	        {
+                   "type":"click",
+                   "name":"新手上路",
+                   "key":"Vxssl"
+                },
+		{  
+                   "type":"click",
+                   "name":"配送范围",
+                   "key":"Vpsfw"
+                },
+		{  
+                   "type":"click",
+                   "name":"帮助中心",
+                   "key":"Vbzzx"
+                },
+		{  
+                   "type":"click",
+                   "name":"关于我们",
+                   "key":"Vgywm"
+                }
+		]
+		}, 
             {
                "name":"会员中心",
                "sub_button":[
@@ -52,10 +72,10 @@ class indexHandler(BaseHandler):
                    "url":self.settings['weixin_url']+'/signup'
                 },
                 {    
-                   "type":"view",
-                   "name":"个人信息",
-                   "url":self.settings['weixin_url']+'/user'
-                },
+                    "type":"view",
+                    "name":"购物车",
+                    "url":self.settings['weixin_url']+'/order'
+		},
                {    
                    "type":"view",
                    "name":"我的订单",
@@ -84,21 +104,33 @@ class indexHandler(BaseHandler):
         response = urllib2.urlopen(req, json.dumps(data,ensure_ascii=False))
         result = response.read()	
     def message(self , body):
+	print body
 	data = ET.fromstring(body)
         tousername = data.find('ToUserName').text
         fromusername = data.find('FromUserName').text
         createtime = data.find('CreateTime').text
         msgtype = data.find('MsgType').text
-        content = data.find('Content').text
-        msgid = data.find('MsgId').text
+	Event = data.find('Event').text
+	EventKey = data.find('EventKey').text
+	if EventKey == 'Vgywm':
+	   content ="菜市优品隶属于上海美蔬电子商务有限公司，致力于打造一个高端食品生鲜电商平台"
+	elif EventKey == 'Vpsfw':
+	   content = "上海市"
+	elif EventKey == 'Vxssl':
+	   content = "注册并转发有好礼相送"
+	elif EventKey == 'Vbzzx':
+	   content = "客服电话400 056 8881"
+	else:
+	   content = "谢谢"
 	textTpl = """<xml>
             <ToUserName><![CDATA[%s]]></ToUserName>
             <FromUserName><![CDATA[%s]]></FromUserName>
             <CreateTime>%s</CreateTime>
-            <MsgType><![CDATA[%s]]></MsgType>
-            <Content><![CDATA[%s]]></Content>
-            </xml>"""
-        out = textTpl % (fromusername, tousername, str(int(time.time())), msgtype, content)
+            <MsgType><![CDATA[text]]></MsgType>
+	    <Content><![CDATA[%s]]></Content>
+            <MsgId>1234567890123456</MsgId>
+	    </xml>"""
+        out = textTpl % (fromusername, tousername, str(int(time.time())),  content)
         self.write(out)
 
     def get(self):
