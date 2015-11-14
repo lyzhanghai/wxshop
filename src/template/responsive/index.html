@@ -18,7 +18,7 @@
 {% block content %}
 <div style="background-color: #FFEC8B;" align="left"><b><font color="red">公告：注册会员及推荐会员注册可获得一个鸡蛋</font></b></div>
 <div id="content" class="content-extra"><div class="ic"></div>
-    <div class="row-1">
+    <div class="row-1" style="background-color: #F0FFF0;">
         <div class="container">
     		<div class="row">
         <article class="span12">
@@ -27,7 +27,7 @@
 	         <ul class="portfolio clearfix">         
                {% for shop in shops -%}
 	           <li class="box"><a href="/shop/{{shop.ename}}"><img alt="" src="/upload/{{ shop.cover }}" width="240px" height="180px"></a>
-	           <p></p><p align="center">{{shop.name}}<b>￥{{shop.price}}</b></p><p align="center"><a href="/shop/{{shop.ename}}" ><button class="btn btn-block btn-large btn-warning" type="button">订购</button></a></p></li> 
+	           <p></p><p align="center">{{shop.name}}<b>￥{{shop.price}}</b></p><p align="center"><a href="/shop/{{shop.ename}}" ><button class="btn btn-block btn-large btn-primary" type="button">订购</button></a></p></li> 
 	           {%- endfor %}
 	         </ul> 
 	      </div>
