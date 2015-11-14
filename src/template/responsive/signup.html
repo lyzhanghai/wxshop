@@ -44,7 +44,7 @@
 	                    <label class="vcode">验证码：</label>
 	                    <input type="text" maxlength="4" id="vcode" name="vcode"><a id="getvcode" class="fl mt5 ml10">获取验证码</a>
 	                </div>
-	                <div class="buttons-wrapper"> <a class="btn btn-1" data-type="reset" onclick="resetForm()">重置</a> <a class="btn btn-1" onclick="register()" data-type="submit">注册</a></div>
+	                <div class="span3"><a class="btn btn-block btn-large btn-primary" onclick="register()" data-type="submit">注册</a></div>
               	   </fieldset>
                 </form>
 				{%if openid=='openid'%}
@@ -58,7 +58,7 @@
 				{%endif%}
           	</div>
           	<h5>已有菜市优品的账户？</h5>
-            <div class="buttons-wrapper"> <a class="btn btn-1" onclick="toLogin()" data-type="button">登录</a></div>
+            <div class="span3"> <a class="btn btn-block btn-large btn-primary" onclick="toLogin()" data-type="button">登录</a></div>
           </article>
       </div>
    </div>
