@@ -13,11 +13,11 @@
 	<table  width="100%" border="1" rules="rows" class="m_table">
         <tr class="bgdd">
             <td width="2%" height="30px">&nbsp;</td>
-            <td width="58%">商品信息</td>
-            <td width="10%">价格</td>
-            <td width="10%">数量</td>
-            <td width="10%">小计</td>
-            <td width="10%">操作</td>
+            <td width="46%">商品信息</td>
+            <td width="13%">价格</td>
+            <td width="13%">数量</td>
+            <td width="13%">小计</td>
+            <td width="13%">操作</td>
         </tr>
         {% for orderitem in orderitems %}
         <tr>
@@ -39,8 +39,8 @@
             <td>
                <span class="cakenumbox">
                    <input type="text" name="num" id="productNum" value="{{orderitem.num}}" size="4" maxlength="4" data="{{price}}" data-id="{{orderitem.id}}" class="num"/>
-                   <span class="increase titico" onclick="decrease()"></span>
-                   <span class="decrease titico" onclick="increase()"></span>
+                   <span id="increase" class="increase titico" data="{{price}}" data-id="{{orderitem.id}}"></span>
+                   <span id="decrease" class="decrease titico" data="{{price}}" data-id="{{orderitem.id}}"></span>
                </span>
             </td>
             <td class="orderitemtotalprice">
@@ -52,12 +52,12 @@
         </tr>
         {% endfor %}
     </table>
-	<div class="mt10 fs14 clearfix">
-        <div class="fr">商品件数<font class="oc">{{orderitems|length}}</font>件 待付商品金额(不含运费)<font class="oc" id="totalprice">￥0元</font></div>
-    </div>
     <div class="blank10"></div>
     <div class="clearfix">
-	<div class="buttons-wrapper"><a class="btn btn-primary" href="/settle">去结算</a></div>
+    <div class="buttons-wrapper">
+        <a class="btn btn-1" href="/">继续购物</a>
+        &nbsp;&nbsp;&nbsp;
+        <a class="btn btn-1" href="/wxpay/settle">结算购物车</a></div>
     </div>
 	 <div class="blank20"></div>
      
@@ -90,7 +90,7 @@ Do(function(){
 	function settotalprice(){
 		var price = 0;
 			$('input.num').each(function(i){
-				price += parseInt($(this).attr('data')) * parseInt($(this).val())
+				price += parseInt($(this).attr('data')) * parseInt($(this).val());
 			})
 			$('#totalprice').html('￥' + price + '元');
 	}
@@ -100,12 +100,30 @@ Do(function(){
         var num = parseInt($(this).val());
         //if (num > 0)
         //{
-			$(this).closest('td').siblings('.orderitemtotalprice').text('￥' + parseInt($(this).attr('data')) * num);
+			$(this).closest('td').siblings('.orderitemtotalprice').text('￥' + (parseFloat($(this).attr('data')) * num).toFixed(2));
             $.post('/ajax/changeorder', {oiid : $(this).attr('data-id'), num : num, _xsrf : xsrf}, function(data) {
             }, 'json');
         //}
 		settotalprice();
     });
+    $('.increase').click(function(event){//数量增加按钮
+        var num = $(this).parent().find("input").val();
+        $(this).parent().find("input").val(parseInt(num)+1);
+        var num2 = $(this).parent().find("input").val();
+        $(this).closest('td').siblings('.orderitemtotalprice').text('￥' + (parseFloat($(this).attr('data')) * num2).toFixed(2));
+		$.post('/ajax/changeorder', {oiid : $(this).attr('data-id'), num : num2, _xsrf : xsrf}, function(data) {
+            }, 'json');
+        settotalprice();
+	})
+    $('.decrease').click(function(event){//数量减少按钮
+        var num = $(this).parent().find("input").val();
+        $(this).parent().find("input").val(parseInt(num)-1);
+        var num2 = $(this).parent().find("input").val();
+        $(this).closest('td').siblings('.orderitemtotalprice').text('￥' + (parseFloat($(this).attr('data')) * num2).toFixed(2));
+		$.post('/ajax/changeorder', {oiid : $(this).attr('data-id'), num : num2, _xsrf : xsrf}, function(data) {
+            }, 'json');
+        settotalprice();
+	})
 	$('.dapeiadd').click(function(){
 		var id = $(this).attr('data-id');
 		$.post("/ajax/orderacc/" + id ,{_xsrf : xsrf}, function(){

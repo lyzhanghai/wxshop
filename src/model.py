@@ -325,6 +325,7 @@ class Distribution(db.Model):
 #订单
 class Order(db.Model):
     id = db.PrimaryKeyField()
+    wxid = db.CharField(max_length=30) #微信支付单号 wx7728db155e6b6e20
     uid = db.IntegerField(default = 0) #用户Id
     mobile = db.CharField(max_length = 11) #注册手机号
     uaid = db.IntegerField(default = 0) #收件地址

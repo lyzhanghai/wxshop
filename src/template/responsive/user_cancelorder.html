@@ -1,0 +1,73 @@
+{% extends "/layout/base.html" %}
+{% block myjs %}
+<script type="text/javascript" src="/style/js/do.js"></script>
+<script type="text/javascript" src="/style/js/shop.js"></script>
+<script src="/style/js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="/style/css/order.css"/>
+<link rel="stylesheet" type="text/css" href="/style/css/shopping.css"/>			
+{% endblock %}
+{% block content %}
+<hr/>
+<div class="wapper">
+    <div class="title borcc borbot0">产品清单<a class="back" href="/order">回到购物车，修改产品 >></a></div>
+    <table  width="100%" border="1" rules="rows" class="m_table">
+        <tr class="bgdd">
+            <td width="2%" height="30px">&nbsp;</td>
+            <td width="50%">商品信息</td>
+            <td width="16%">价格</td>
+            <td width="16%">数量</td>
+            <td width="16%">小计</td>
+        </tr>
+        {% for orderitem in orderitems %}
+        <tr>
+            <td width="2%" height="90px;"></td>
+            <td>
+                <a class="fl"><img src="/upload/{{orderitem.shop.cover}}"></a>
+                <p class="fl ml10 fs12">
+                    <a class="fs14">{{orderitem.shop.name}} </a><br>
+                </p>
+            </td>
+            {%if orderitem.shopattr%}
+            {%set price = orderitem.shopattr.price%}
+            {%else%}
+            {%set price = orderitem.shop.price|float%}
+            {%endif%}
+            <td class="oc">
+                ￥{{price}}
+            </td>
+            <td>
+		{{orderitem.num}}
+               <!--span class="cakenumbox">
+                   <input type="text" size="3" value="{{orderitem.num}}"  readonly>
+               </span-->
+            </td>
+            <td>
+                ￥{{price * orderitem.num}} {%if orderitem.shop.cid == 1 and price * orderitem.num > user.credit%}<span id="ctips">(积分不够)</span>{%endif%}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% set status = ['0', '1', '2', '3', '4']%}
+<form action="" method="post">
+    {{xsrf()}}
+    <div class="form-group">
+            <input style="display:none;" value={{status.index('4')}}>
+    </div>
+    <div class="form-group">
+        <button style="width:210px; height:30px; background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="submit" onclick="cancel()">取消订单</button>
+    </div>
+</form>
+<script type="text/javascript">
+    function cancel(){
+        if(!confirm('你确定要取消订单吗？')){
+            window.event.returnValue = false; 
+        }
+    }
+</script>
+{% endblock %}
+{% block foot %}
+
+
+
+{% endblock %}

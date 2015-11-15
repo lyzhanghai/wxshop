@@ -72,7 +72,7 @@ class OrderHandler(UserBaseHandler):
         total = oq.count()
         
         orders = []
-        for order in oq.paginate(page, pagesize).dicts():
+        for order in oq.paginate(page, pagesize).order_by(Order.ordered.desc()).dicts():
             order['orderitems'] = []
             
             for orderitem in OrderItem.select().where(OrderItem.oid == order['id']).dicts():
@@ -106,6 +106,92 @@ class OrderHandler(UserBaseHandler):
         
         self.render('/responsive/user_order.html', orders = orders, total = total, page = page, pagesize = pagesize)
 
+@route(r'/user/cancelorder/(\d+)', name='user_cancelorder') #取消订单
+class CancelOrderHandler(UserBaseHandler):
+    def get(self, oid):
+        orderitems = []
+        price = 0.0
+        credit = 0.0
+        order = None
+        try:
+            order = Order.get(id = oid)
+            print order.id
+            for orderitem in OrderItem.select().where(OrderItem.oid == order.id).dicts():
+                try:
+                    orderitem['shop'] = Shop.get(id = orderitem['sid'])
+                    _oiprice = orderitem['shop'].price
+                    
+                    if orderitem['said'] > 0:
+                        orderitem['shopattr'] = ShopAttr.get(id = orderitem['said'])
+                        if orderitem['shop'].cid == 1:
+                            _oicredit = orderitem['shopattr'].price
+                            credit = credit + _oicredit * orderitem['num']
+                            _oiprice = orderitem['shopattr'].price
+                        else:
+                            _oiprice = orderitem['shopattr'].price
+                    else:
+                        _oiprice = float(_oiprice)
+                        
+                    orderitems.append(orderitem)
+                    price = price + float(_oiprice) * orderitem['num']
+                except:
+                    pass
+            print price
+        except:
+            pass
+        
+        self.render("/responsive/user_cancelorder.html", order = order, credit = credit, orderitems = orderitems)
+    
+    def post(self, oid):
+        #status = int(self.get_argument("status", 0))
+        
+        Order.update(status = 4).where(Order.id == oid).execute()
+        self.flash("修改成功")
+        self.redirect("/user/orders")        
+
+@route(r'/user/confirmorder/(\d+)', name='user_confirmorder') #确认收货
+class ConfirmOrderHandler(UserBaseHandler):
+    def get(self, oid):
+        orderitems = []
+        price = 0.0
+        credit = 0.0
+        order = None
+        try:
+            order = Order.get(id = oid)
+            print order.id
+            for orderitem in OrderItem.select().where(OrderItem.oid == order.id).dicts():
+                try:
+                    orderitem['shop'] = Shop.get(id = orderitem['sid'])
+                    _oiprice = orderitem['shop'].price
+                    
+                    if orderitem['said'] > 0:
+                        orderitem['shopattr'] = ShopAttr.get(id = orderitem['said'])
+                        if orderitem['shop'].cid == 1:
+                            _oicredit = orderitem['shopattr'].price
+                            credit = credit + _oicredit * orderitem['num']
+                            _oiprice = orderitem['shopattr'].price
+                        else:
+                            _oiprice = orderitem['shopattr'].price
+                    else:
+                        _oiprice = float(_oiprice)
+                        
+                    orderitems.append(orderitem)
+                    price = price + float(_oiprice) * orderitem['num']
+                except:
+                    pass
+            print price
+        except:
+            pass
+        
+        self.render("/responsive/user_confirmorder.html", order = order, credit = credit, orderitems = orderitems)
+    
+    def post(self, oid):
+        #status = int(self.get_argument("status", 0))
+        
+        Order.update(status = 3).where(Order.id == oid).execute()
+        self.flash("修改成功")
+        self.redirect("/user/orders")
+        
 @route(r'/user/address', name='user_address') #用户地址
 class AddressHandler(UserBaseHandler):
     

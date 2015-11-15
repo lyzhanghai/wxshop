@@ -128,7 +128,7 @@
 <div class="wapper">
     <div class="title borcc borbot0">支付方式</div>
     <div class="formbase clearfix borcc">
-    	<label><input type="radio" name="payment" value="0"> 货到付款</label>  <label><input type="radio" name="payment" value="1" checked> 支付宝</label>
+    	<label><input type="radio" name="payment" value="0"> 货到付款</label>  <label><input type="radio" name="payment" value="1" checked> 微信支付</label>
     </div>
 </div>
 <div class="blank20"></div>
@@ -228,7 +228,7 @@ Do.ready(function(){
 
                 var useraddr = useraddrs[i];
 
-                html += '<div class="item"><span><input type="radio" name="uaitem" value="' + useraddr.id + '" class="uaitem_' + useraddr.id + ' radio"></span><div class="fl">' + useraddr.city + ' ' + useraddr.region + ' ' + useraddr.address + ' ' + useraddr.name + ' ' + useraddr.mobile + '</div><a data-id=" ' +  useraddr.id + '" class="oc ml10 fl">删除</a></div>';
+                html += '<div class="item"><span><input type="button" name="uaitem" value="删除" id="' + useraddr.id + '" class="btn btn-1" style="width:50px; height:26px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="uaitem" value="' + useraddr.id + '" class="uaitem_' + useraddr.id + ' radio"></span><div class="fl">' + useraddr.city + ' ' + useraddr.region + ' ' + useraddr.address + ' ' + useraddr.name + ' ' + useraddr.mobile + '</div></div>';
 
             }
 
@@ -298,13 +298,13 @@ Do.ready(function(){
 
 
 
-    $('#addrs a').live('click', function(){
+    $('#addrs input:button').live('click', function(event){
 
         if (confirm('确定删除'))
 
         {
 
-            var uaid = $(this).attr('data-id');
+            var uaid = $(this).attr('id');
 
             $.getJSON('/ajax/deladdr/' + uaid, function(data){
 

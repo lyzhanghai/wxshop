@@ -80,7 +80,7 @@ Do.ready(function(){
     $('#size_sel a').click(function(event) {
         $('#size_sel a').removeClass('on');
         $(this).addClass('on');
-        $('#price').text(parseInt($(this).attr('data'))* $('#num').val());
+        $('#price').text(parseFloat($(this).attr('data'))* $('#num').val()).toFixed(2);
         return false;
     });
     $('#num').change(function(event) {

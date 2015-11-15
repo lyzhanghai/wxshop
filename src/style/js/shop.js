@@ -15,13 +15,13 @@ function decrease(){
 function settotalprice(){
 	var xsrf='{{handler.xsrf_token}}';
 	var num = parseInt($('#productNum').val());
-	$('#productNum').closest('td').siblings('.orderitemtotalprice').text('￥' + parseInt($('#productNum').attr('data')) * num);
+	$('#productNum').closest('td').siblings('.orderitemtotalprice').text('￥' + (parseFloat($('#productNum').attr('data')) * num).toFixed(2));
     $.post('/ajax/changeorder', {oiid : $('#productNum').attr('data-id'), num : num, _xsrf : xsrf}, function(data) {
     }, 'json');
 	
 	var price = 0;
 	$('input.num').each(function(i){
-		price += parseInt($('#productNum').attr('data')) * parseInt($('#productNum').val())
+		price += parseFloat($('#productNum').attr('data')) * parseFloat($('#productNum').val())+1
 	})
 	$('#totalprice').html('￥' + price + '元');
 }

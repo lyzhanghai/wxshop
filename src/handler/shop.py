@@ -2,16 +2,19 @@
 #coding=utf8
 
 import datetime
+import time
 import urllib
 import simplejson
 import logging
 import string
+import json
 from tornado.web import HTTPError
 from handler import BaseHandler
 from lib.route import route
 from lib.util import sendmsg
 from model import Category, CategoryAttr, Shop, ShopAttr, ShopPic, Order, OrderItem, Distribution, User, CreditLog
-
+from wxpay import JsApi_pub, UnifiedOrder_pub,WxPayConf_pub,Notify_pub   
+        
 @route(r'/recomm/', name='recomm') #产品推荐
 class RecommHandler(BaseHandler):
     
@@ -69,7 +72,7 @@ class ListHandler(BaseHandler):
         
         self.render("shop/list.html", ccategory = ccategory, categorys = categorys, shops = shops, total = total, page = page, pagesize = pagesize)
 
-@route(r'/shop/([^/]+)?', name='shop') #蛋糕详细页
+@route(r'/shop/([^/]+)?', name='shop') #商品详细页
 class ShopHandler(BaseHandler):
     
     def get(self, ename):
@@ -125,7 +128,7 @@ class OrderHandler(BaseHandler):
         ashops = Shop.select().where((Shop.cid == 2) & (Shop.status != 9))
         self.render("/responsive/order.html", orderitems = orderitems, order = order, ashops = ashops)
 
-@route(r'/settle', name='settle') #结算
+@route(r'/wxpay/settle', name='wxpay_settle') #结算
 class SettleHandler(BaseHandler):
     def prepare(self):
         if not self.current_user:
@@ -190,6 +193,8 @@ class SettleHandler(BaseHandler):
         
         try:
             order = Order.get(uid = user.id, status = 0)
+            print "user.id:"
+            print user.id
             
             mobile = self.get_argument("mobile", user.mobile)
             uaid = self.get_argument("uaid", None)
@@ -276,7 +281,7 @@ class SettleHandler(BaseHandler):
                 tn = "U%d-S%d" % (user.id, order.id)
                 
                 if int(payment) == 1:
-                    self.redirect("/alipay/topay?tn=%s&body=%s&price=%f" % (tn, body, order.price))
+                    self.redirect("/wxpay/pay")
                 else:
                     self.flash(u"请选择地址和收货方式")
                     self.redirect("/user/orders")
@@ -286,3 +291,129 @@ class SettleHandler(BaseHandler):
         except Exception, ex:
             logging.error(ex)
             self.flash(u"此订单不存在或者已过期")
+            
+@route(r'/wxpay/pay', name='wxpay_pay') #支付
+class WxpayHandler(BaseHandler):
+    def prepare(self):
+        if not self.current_user:
+            url = self.get_login_url()
+            if "?" not in url:
+                url += "?" + urllib.urlencode(dict(next=self.request.full_url()))
+            self.redirect(url)
+        
+        super(BaseHandler, self).prepare()
+        
+    def get(self):
+        orderitems = []
+        user = self.current_user
+        
+        order = None
+        
+        distributions = self.get_distributions()
+        price = 0.0
+        credit = 0.0
+        
+        try:
+            order = Order.get(uid = user.id, status = 0)
+            print order.id
+            '''
+            try:
+                mobile = '18014349809'
+                sendmsg(self.settings, mobile, '新订单')
+            except:
+                pass
+            '''    
+            for orderitem in OrderItem.select().where(OrderItem.oid == order.id).dicts():
+                try:
+                    orderitem['shop'] = Shop.get(id = orderitem['sid'])
+                    _oiprice = orderitem['shop'].price
+                    
+                    if orderitem['said'] > 0:
+                        orderitem['shopattr'] = ShopAttr.get(id = orderitem['said'])
+                        if orderitem['shop'].cid == 1:
+                            _oicredit = orderitem['shopattr'].price
+                            credit = credit + _oicredit * orderitem['num']
+                            _oiprice = orderitem['shopattr'].price
+                        else:
+                            _oiprice = orderitem['shopattr'].price
+                    else:
+                        _oiprice = float(_oiprice)
+                        
+                    orderitems.append(orderitem)
+                    price = price + float(_oiprice) * orderitem['num']
+                except:
+                    pass
+            print price
+            price_pay = str(int(price*100))
+            print 'price_pay:' + price_pay
+            openid = user.openid
+            print 'wx_pay:'+ openid
+            jsApi = JsApi_pub()
+            unifiedOrder = UnifiedOrder_pub()
+            unifiedOrder.setParameter("openid",openid) #商品描述
+            unifiedOrder.setParameter("body","菜市优品购物") #商品描述
+            timeStamp = time.time()
+            print timeStamp
+            out_trade_no = "{0}{1}".format(WxPayConf_pub.APPID, int(timeStamp*100))
+            unifiedOrder.setParameter("out_trade_no", out_trade_no) #商户订单号
+            print 'out_trade_no:' + out_trade_no
+            Order.update(wxid = out_trade_no).where(Order.id == order.id).execute()
+            unifiedOrder.setParameter("total_fee", price_pay) #总金额
+            print WxPayConf_pub.NOTIFY_URL
+            unifiedOrder.setParameter("notify_url", WxPayConf_pub.NOTIFY_URL) #通知地址 
+            unifiedOrder.setParameter("trade_type", "JSAPI") #交易类型
+            
+            prepay_id = unifiedOrder.getPrepayId()
+            jsApi.setPrepayId(prepay_id)
+            jsApiParameters = jsApi.getParameters()
+            print jsApiParameters
+            appid = json.loads(jsApiParameters).get("appId")
+            timestamp = json.loads(jsApiParameters).get("timeStamp")
+            noncestr = json.loads(jsApiParameters).get("nonceStr")
+            package = json.loads(jsApiParameters).get("package")
+            signtype = json.loads(jsApiParameters).get("signType")
+            paysign = json.loads(jsApiParameters).get("paySign")
+            print appid + timestamp + noncestr + package + signtype +paysign
+            if orderitems:
+                self.render("/responsive/wxpay.html", tmday = datetime.date.today() + datetime.timedelta(days=1), order  = order, orderitems = orderitems, distributions = distributions.values(), credit = credit, appid = appid, timestamp = timestamp, noncestr = noncestr, package = package, signtype = signtype, paysign = paysign)
+        except:
+            pass
+        
+
+@route(r'/wxpay/callback', name='wxpay_callback') #回调通知
+class CallbackHandler(BaseHandler):
+        
+    def post(self):
+        notify = Notify_pub()
+        xml = self.request.body
+        notify.saveData(xml)
+        if not notify.checkSign:
+            notify.setParameter("return_code", "FAIL")
+            notify.setReturnParameter("return_msg", "签名失败")
+            print "签名失败"
+        else:
+            result = notify.getData()
+            print "result:"
+            print result
+            
+            if result["return_code"] == "FAIL":
+                notify.setReturnParameter("return_code", "FAIL")
+                notify.setReturnParameter("return_msg", "通信错误")
+                print "通信错误"
+            elif result["result_code"] == "FAIL":
+                notify.setReturnParameter("return_code", "FAIL")
+                notify.setReturnParameter("return_msg", result["err_code_des"])
+            else:
+                notify.setReturnParameter("return_code", "SUCCESS")
+                out_trade_no = result["out_trade_no"]
+                time_end = result["time_end"]
+                print "支付成功:" + out_trade_no
+                print "交易时间:" + time_end
+                print "更改订单状态"
+                Order.update(status = 1).where(Order.status == 0 and Order.wxid == out_trade_no).execute() #支付成功订单状态改为1
+        return self.write(notify.returnXml()) 
+
+        
+
+
+    
