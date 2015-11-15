@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="/style/responsive/css/style.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="/style/responsive/css/touchTouch.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="/style/responsive/css/kwicks-slider.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="/style/responsive/css/menu.css" type="text/css" media="screen">
 	{% block mycss %}{% endblock %}
 	<script type="text/javascript" src="/style/responsive/js/jquery.js"></script>
     <script type="text/javascript" src="/style/responsive/js/superfish.js"></script>
@@ -37,6 +38,7 @@
         <div class="navbar navbar_">
             <div class="container">
             <h1 class="brand brand_"><a href=""><img alt="" src="/style/css/logo4.jpg"> </a></h1>
+            <!-- 
             <a class="btn btn-navbar btn-navbar_" style="background-color: #F5EAD3;" data-toggle="collapse" data-target=".nav-collapse_">菜单 <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
                 <ul class="nav sf-menu">         
@@ -49,6 +51,7 @@
 				{%-else-%}<li><a href="/signin">登录|注册</a></li>{%-endif%}
                 </ul>
             </div>
+             -->
           </div>
         </div>
       </div>
@@ -63,6 +66,46 @@
     <div class="privacy pull-right">&copy; Copyright &copy; 2015菜市优品 All RightRevesed.</div>
   </div>
 </footer>
+<!-- footer menu start -->
+<div class="btn3 clearfix">
+    <div class="menu">
+        <div class="bt-name"><a href="/">首页</a></div>
+    </div><!--menu-->
+    <div class="menu">
+        <div class="bt-name"><a href="/order">购物车</a></div>
+    </div><!--menu-->
+    <div class="menu" >
+     <div class="bt-name">个人中心</div>
+    <div class="sanjiao"></div>
+    <div  class="new-sub">
+        <ul>
+        {% if user -%}
+            <li><a href="/user/orders">我的订单</a></li>
+            <li><a href="/signout">退出</a></li>
+        <!-- {%if user.group == 9 -%}<li><a href="/admin">网站管理</a></li>{%endif %} -->
+        {%-else-%}<li><a href="/signin">登录</a></li>{%-endif%}
+        </ul>
+        <div class="tiggle"></div>
+        <div class="innertiggle"></div>
+    </div>
+    </div><!--menu-->
+
+</div><!--btn3-->
+<!-- footer menu end -->
+<script type="text/javascript">
+//弹出垂直菜单
+$(".menu").click(function() {
+    if ($(this).hasClass("cura")) {
+        $(this).children(".new-sub").hide(); //当前菜单下的二级菜单隐藏
+        $(".menu").removeClass("cura"); //同一级的菜单项
+    } else {
+        $(".menu").removeClass("cura"); //移除所有的样式
+        $(this).addClass("cura"); //给当前菜单添加特定样式
+        $(".menu").children(".new-sub").slideUp("fast"); //隐藏所有的二级菜单
+        $(this).children(".new-sub").slideDown("fast"); //展示当前的二级菜单
+    }
+});
+</script>
 <script type="text/javascript" src="/style/responsive/js/bootstrap.js"></script>
 </body>
 </html>
