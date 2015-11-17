@@ -132,7 +132,7 @@ class indexHandler(BaseHandler):
 	    </xml>"""
         out = textTpl % (fromusername, tousername, str(int(time.time())),  content)
         self.write(out)
-
+	return content
     def get(self):
         token=self.settings['weixin_token']
         signature = self.get_argument("signature")
@@ -155,6 +155,6 @@ class indexHandler(BaseHandler):
         signature = self.get_argument("signature")
         timeStamp = self.get_argument("timestamp")
 	body = self.request.body
-	self.message(body)
-        self.get_access_token()
-        self.createMenu()
+	if self.message(body) == "谢谢":
+            self.get_access_token()
+            self.createMenu()
